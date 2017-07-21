@@ -30,23 +30,31 @@ exports.up = function(knex, Promise) {
     }),
     knex.schema.createTable('users_movies', function(table){
       table.increments();
-      table.foreign('users_id').references('users.id');
-      table.foreign('movies_id').references('movies.id');
+      table.integer('users_id');
+      table.integer('movies_id');
+      table.foreign('users_id').references('id').inTable('users');
+      table.foreign('movies_id').references('id').inTable('movies');
     }),
     knex.schema.createTable('users_books', function(table){
       table.increments();
-      table.foreign('users_id').references('users.id');
-      table.foreign('books_id').references('books.id');
+      table.integer('users_id');
+      table.integer('books_id');
+      table.foreign('users_id').references('id').inTable('users');
+      table.foreign('books_id').references('id').inTable('books');
     }),
     knex.schema.createTable('users_places', function(table){
       table.increments();
-      table.foreign('users_id').references('users.id');
-      table.foreign('restaurants_id').references('restaurants.id');
+      table.integer('users_id');
+      table.integer('places_id');
+      table.foreign('users_id').references('id').inTable('users');
+      table.foreign('places_id').references('id').inTable('places');
     }),
     knex.schema.createTable('users_products', function(table){
       table.increments();
-      table.foreign('users_id').references('users.id');
-      table.foreign('products_id').references('products.id');
+      table.integer('users_id');
+      table.integer('products_id');
+      table.foreign('users_id').references('id').inTable('users');
+      table.foreign('products_id').references('id').inTable('products');
     }),
   ]);
 };
