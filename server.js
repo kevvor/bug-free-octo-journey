@@ -14,6 +14,14 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 
+//amazon keys
+const secrets = require('./secrets')
+const amazon = require('amazon-product-api');
+const client = amazon.createClient({
+  awsId: secrets.awsId,
+  awsSecret: secrets.awsSecret,
+  awsTag: secrets.awsTag
+});
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 
@@ -27,6 +35,7 @@ app.use(knexLogger(knex));
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use("/styles", sass({
   src: __dirname + "/styles",
   dest: __dirname + "/public/styles",
@@ -49,6 +58,25 @@ app.use("/api/users", usersRoutes(knex));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+app.get("/amazonSearch", (req,res)=>{
+  console.log(req.query.userinput)
+  client.itemSearch({
+    Keywords: req.query.userinput,
+    responseGroup: 'ItemAttributes,Offers,Images'
+  }).then(function(results){
+    // console.log(results)
+    console.log(results[0].LargeImage[0].URL[0]);
+
+    // let amazonPic = results[0].LargeImage[0].URL[0];
+    // res.send(amazonPic);
+
+  }).catch(function(err){
+    // console.log(err.Error[0].Message);
+  });
+
+})
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

@@ -7,5 +7,5 @@ $(() => {
   //     $("<div>").text(user.name).appendTo($("body"));
   //   }
   // });;
-  $('body').append($('<h1>')).text('hello friend');
+  // $('body').append($('<h1>')).text('hello friend');
 });
