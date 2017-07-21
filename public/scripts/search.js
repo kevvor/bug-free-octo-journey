@@ -8,7 +8,23 @@
 
 $(document).ready(function() {
 
+  $('#movie-tab-selector').on('click',function(){
+    $('#tmdbSearchForm').show();
+    $('#amazonSearchForm').hide();
+    $('#yelpSearchForm').hide();
+  })
 
+  $('#restaurant-tab-selector').on('click',function(){
+    $('#tmdbSearchForm').hide();
+    $('#amazonSearchForm').hide();
+    $('#yelpSearchForm').show();
+  })
+
+  $('#product-tab-selector').on('click',function(){
+    $('#tmdbSearchForm').hide();
+    $('#amazonSearchForm').show();
+    $('#yelpSearchForm').hide();
+  })
 
 
   $('#amazonSearchForm').on('submit', function(event){
