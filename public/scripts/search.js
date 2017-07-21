@@ -7,19 +7,44 @@ $(document).ready(function() {
     .append(
       $('<div/>').addClass("col-sm-4 suggestion")
         .append($('<h3/>').text(arrayToRender.name1))
-        .append($('<img/>').attr("src", arrayToRender.imgUrl1))
+        .append($('<img/>').attr("src", arrayToRender.imgUrl1)).append($('<br/>'))
+        .append($('<span/>').text('testing1 testin testin')).append($('<br/>'))
+        .append($('<span/>').text('testing2 testin testin')).append($('<br/>'))
+        .append($('<span/>').text('testing3 testin testin'))
     )
     .append(
       $('<div/>').addClass("col-sm-4 suggestion")
         .append($('<h3/>').text(arrayToRender.name2))
         .append($('<img/>').attr("src", arrayToRender.imgUrl2))
+        .append($('<span/>').text('testing1 testin testin'))
+        .append($('<span/>').text('testing2 testin testin'))
+        .append($('<span/>').text('testing3 testin testin'))
     )
     .append(
       $('<div/>').addClass("col-sm-4 suggestion")
         .append($('<h3/>').text(arrayToRender.name3))
         .append($('<img/>').attr("src", arrayToRender.imgUrl3))
+        .append($('<span/>').text('testing testin testin'))
+        .append($('<span/>').text('testing testin testin'))
+        .append($('<span/>').text('testing testin testin'))
     )
   }
+
+
+
+  function renderTmdb(apiInput, resultIndex){
+    let baseUrl = "http://image.tmdb.org/t/p/w185"
+    $('.suggestions-field').find('.row')
+    .append(
+      $('<div/>').addClass("col-sm-4 suggestion")
+        .append($('<h3/>').text(apiInput.results[resultIndex].title))
+        .append($('<img/>').attr("src", `${baseUrl}${apiInput.results[resultIndex].poster_path}`)).append($('<br/>'))
+        .append($('<span/>').text('testing1 testin testin')).append($('<br/>'))
+        .append($('<span/>').text('testing2 testin testin')).append($('<br/>'))
+        .append($('<span/>').text('testing3 testin testin'))
+    )
+  }
+
 
 
   $('#movie-tab-selector').on('click',function(){
@@ -47,6 +72,7 @@ $(document).ready(function() {
 
   $('#amazonSearchForm').on('submit', function(event){
     event.preventDefault();
+    $('.suggestion').remove();
     let suggestions = {};
     let searchTerms = $('#amazonSearchText').val();
     suggestions['name1'] = searchTerms;
@@ -61,26 +87,35 @@ $(document).ready(function() {
         suggestions['imgUrl2'] = result[1].LargeImage[0].URL[0];
         suggestions['imgUrl3'] = result[2].LargeImage[0].URL[0]
         renderSuggestions(suggestions);
-        console.log(suggestions);
+
     })
   });
 
   $('#yelpSearchForm').on('submit', function(event){
     event.preventDefault();
+    $('.suggestion').remove();
+    let suggestions = {};
     let searchTerms = $('#yelpSearchText').val();
-    console.log(searchTerms);
 
     $.ajax({
       method: "GET",
       url: "/yelpSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-        console.log(result.businesses[0]);
+      suggestions['name1'] = result.businesses[0].name
+      suggestions['name2'] = result.businesses[1].name
+      suggestions['name3'] = result.businesses[2].name
+      suggestions['imgUrl1'] = result.businesses[0].image_url
+      suggestions['imgUrl2'] = result.businesses[1].image_url
+      suggestions['imgUrl3'] = result.businesses[2].image_url
+      renderSuggestions(suggestions);
+
     })
   });
 
   $('#tmdbSearchForm').on('submit', function(event){
     event.preventDefault();
+    $('.suggestion').remove();
     let suggestions = {};
     let searchTerms = $('#tmdbSearchText').val();
 
@@ -89,66 +124,27 @@ $(document).ready(function() {
       url: "/tmdbSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-        suggestions['name1'] = result.results[0].title;
-        suggestions['name2'] = result.results[1].title;
-        suggestions['name3'] = result.results[2].title;
-        let baseUrl = "http://image.tmdb.org/t/p/w185"
-        suggestions['imgUrl1'] = `${baseUrl}${result.results[0].poster_path}`
-        suggestions['imgUrl2'] = `${baseUrl}${result.results[1].poster_path}`
-        suggestions['imgUrl3'] = `${baseUrl}${result.results[2].poster_path}`
-        renderSuggestions(suggestions);
+        // suggestions['name1'] = result.results[0].title;
+        // suggestions['name2'] = result.results[1].title;
+        // suggestions['name3'] = result.results[2].title;
+        // let baseUrl = "http://image.tmdb.org/t/p/w185"
+        // suggestions['imgUrl1'] = `${baseUrl}${result.results[0].poster_path}`
+        // suggestions['imgUrl2'] = `${baseUrl}${result.results[1].poster_path}`
+        // suggestions['imgUrl3'] = `${baseUrl}${result.results[2].poster_path}`
+        // renderSuggestions(suggestions);
+        if (result.total_results <= 0) console.log('error')
+        else renderTmdb(result)
+
+
+
+
+
+
+        console.log(result.results[0])
+
     })
   });
 
-
-
-  // function createTweetELement(userObj){
-  //   $('.tweet-field').prepend(
-
-  //     $('<section/>').addClass("existing-tweet")
-
-  //       .prepend($('<footer/>').addClass("timestamp-footer").text(timeSince(userObj.created_at))
-  //         .append($('<img/>').attr("src", "https://d30y9cdsu7xlg0.cloudfront.net/png/1308-200.png" ).addClass("like").data("tweet_ID", userObj._id))
-  //         .append($('<img/>').attr("src", "https://image.freepik.com/free-icon/retweet_318-11148.jpg" ))
-  //         .append($('<img/>').attr("src", "http://simpleicon.com/wp-content/uploads/flag.png" ))
-  //       )
-
-  //       .prepend($('<article/>').addClass("tweet").text(userObj.content.text))
-
-  //       .prepend($('<header/>').addClass("user-header")
-  //         .append($('<img/>').attr("src", userObj.user.avatars.small))
-  //         .append($('<h2/>').text(userObj.user.name))
-  //         .append($('<span/>').text(userObj.user.handle))
-  //       )
-
-
-  //   );
-
-  // };
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // let testVar = 'skates';
-  // console.log(testVar);
-
-  // client.itemSearch({
-  //     Keywords: testVar,
-  //     responseGroup: 'ItemAttributes,Offers,Images'
-  //   }).then(function(results){
-  //     console.log(results[0].LargeImage[0].URL[0])
-  //   }).catch(function(err){
-  //     console.log(err.Error[0].Message);
-  //   });
 
 
 
