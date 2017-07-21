@@ -18,36 +18,34 @@
   </head>
 
   <body>
-
-    <form id = "amazonSearchForm" method = "GET" action = "/">
-      <textarea required="" id = "amazonSearchText" name = "amazonSearchText"></textarea>
-      <input id = "amazonSubmit" type="submit" name="amazonSubmit" value = "search">
-    </form>
-
-    <form id = "yelpSearchForm" method = "GET" action = "/">
-      <textarea required="" id = "yelpSearchText" name = "yelpSearchText"></textarea>
-      <input id = "yelpSubmit" type="submit" name="yelpSubmit" value = "search">
-    </form>
-
-    <form id = "tmdbSearchForm" method = "GET" action = "/">
-      <textarea required="" id = "tmdbSearchText" name = "tmdbSearchText"></textarea>
-      <input id = "tmdbSubmit" type="submit" name="tmdbSubmit" value = "search">
-    </form>
+    <main>
+      <form id = "amazonSearchForm" method = "GET" action = "/">
+        <textarea required="" id = "amazonSearchText" name = "amazonSearchText"></textarea>
+        <input id = "amazonSubmit" type="submit" name="amazonSubmit" value = "search">
+      </form>
+      <form id = "yelpSearchForm" method = "GET" action = "/">
+        <textarea required="" id = "yelpSearchText" name = "yelpSearchText"></textarea>
+        <input id = "yelpSubmit" type="submit" name="yelpSubmit" value = "search">
+      </form>
+      <form id = "tmdbSearchForm" method = "GET" action = "/">
+        <textarea required="" id = "tmdbSearchText" name = "tmdbSearchText"></textarea>
+        <input id = "tmdbSubmit" type="submit" name="tmdbSubmit" value = "search">
+      </form>
 
 
-  <nav>
+    <nav>
       <ul>
-        <li><a href="#">Movie</a></li>
-        <li><a href="#">Books</a></li>
-        <li><a href="#">Restaurants</a></li>
-        <li><a href="#">Products</a></li>
+        <li><a id = "movie-tab-selector"  href="#">Movie</a></li>
+        <li><a id = "book-tab-selector" href="#">Books</a></li>
+        <li><a id = "restaurant-tab-selector" href="#">Restaurants</a></li>
+        <li><a id = "product-tab-selector" href="#">Products</a></li>
       </ul>
     </nav>
 
-    <div class="movies-list">
-    <div class="books-list">
-    <div class="restaurants-list">
-    <div class="products-list">
+    <div class="movies-list"></div>
+    <div class="books-list"></div>
+    <div class="restaurants-list"></div>
+    <div class="products-list"></div>
 
     <div class="movies-list">
       <dl class="movies">
@@ -95,6 +93,6 @@
         <span class="description"></span>
       </dl>
     </div>
-
+    </main>
   </body>
 </html>
