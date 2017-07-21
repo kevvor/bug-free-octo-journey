@@ -230,21 +230,21 @@ loadToDoItems();
     }
   });
 };
->>>>>>> 484d1cdba6d390dc9911c827761476fffa184032
+
 
 // loadToDoItems(dataObj) // calls everything
 
 // $(selector).hide(speed, callback);
 
-<<<<<<< HEAD
+
 // $("").click(fast, function() {
 //   $("").
 // }
-=======
-$("").click(fast, function() {
+
+// $("").click(fast, function() {
   // $("").
-})
->>>>>>> 484d1cdba6d390dc9911c827761476fffa184032
+// })
+
 
   // '/todos/movies'
   // make 4 AJAX requests (within loadToDoItems):
@@ -253,12 +253,9 @@ $("").click(fast, function() {
   // right now: work on getting page to load
   // user's to do lists
 
-<<<<<<< HEAD
 // $().on("click")
 
-=======
-$().on("click") {
->>>>>>> 484d1cdba6d390dc9911c827761476fffa184032
+// $().on("click") {
 
 
 
