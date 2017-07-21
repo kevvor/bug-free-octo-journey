@@ -16,14 +16,17 @@ $(document).ready(function() {
     let searchTerms = $('#amazonSearchText').val();
     console.log(searchTerms);
 
-  $.ajax({
-    method: "GET",
-    url: "/amazonSearch",
-    data: {"userinput":searchTerms}
-  })
-
-
+    $.ajax({
+      method: "GET",
+      url: "/amazonSearch",
+      data: {"userinput":searchTerms}
+    }).done((results)=>{
+        console.log(results[0].LargeImage[0].URL[0]);
+    })
   });
+
+
+
 
 
   // let testVar = 'skates';

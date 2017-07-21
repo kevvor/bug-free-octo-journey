@@ -65,6 +65,7 @@ app.get("/amazonSearch", (req,res)=>{
     Keywords: req.query.userinput,
     responseGroup: 'ItemAttributes,Offers,Images'
   }).then(function(results){
+    res.json(results);
     // console.log(results)
     console.log(results[0].LargeImage[0].URL[0]);
 
