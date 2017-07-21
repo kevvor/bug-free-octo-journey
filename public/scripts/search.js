@@ -25,6 +25,20 @@ $(document).ready(function() {
     })
   });
 
+  $('#yelpSearchForm').on('submit', function(event){
+    event.preventDefault();
+    let searchTerms = $('#yelpSearchText').val();
+    console.log(searchTerms);
+
+    $.ajax({
+      method: "GET",
+      url: "/yelpSearch",
+      data: {"userinput":searchTerms}
+    }).done((results)=>{
+        console.log(result.businesses[0]);
+    })
+  });
+
 
 
 

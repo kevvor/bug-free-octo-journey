@@ -24,7 +24,8 @@
     "morgan": "^1.7.0",
     "node-sass-middleware": "^0.9.8",
     "nodemon": "^1.11.0",
-    "pg": "^6.0.2"
+    "pg": "^6.0.2",
+    "yelp-v3": "0.0.5"
   },
   "devDependencies": {
     "nodemon": "^1.11.0",

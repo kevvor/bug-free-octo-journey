@@ -23,6 +23,11 @@ const client = amazon.createClient({
   awsTag: secrets.awsTag
 });
 
+var Yelp = require('yelp-v3');
+var yelp = new Yelp({
+  access_token: secrets.access_token
+});
+
 
 
 // Seperated Routes for each Resource
@@ -69,17 +74,26 @@ app.get("/amazonSearch", (req,res)=>{
     responseGroup: 'ItemAttributes,Offers,Images'
   }).then(function(results){
     res.json(results);
-    // console.log(results)
     console.log(results[0].LargeImage[0].URL[0]);
-
-    // let amazonPic = results[0].LargeImage[0].URL[0];
-    // res.send(amazonPic);
-
   }).catch(function(err){
-    // console.log(err.Error[0].Message);
+    console.log(err.Error[0].Message);
   });
-
 })
+
+app.get("/yelpSearch",(req,res)=>{
+  console.log(req.query.userinput)
+  yelp.search({ term: req.query.userinput, location: 'Montreal' })
+  .then(function (result) {
+    res.json(result)
+    console.log(result.businesses[0]);
+  })
+  .catch(function (err) {
+    console.error(err);
+  });
+})
+
+
+
 
 
 app.listen(PORT, () => {
