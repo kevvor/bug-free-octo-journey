@@ -66,7 +66,6 @@ app.use("/styles", sass({
   debug: true,
   outputStyle: 'expanded'
 }));
-const cookieSession = require('cookie-session');
 app.use(cookieSession({
   name: 'session',
   secret: 'secret',
@@ -103,6 +102,7 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
+  let newUser_id = generateRandomString(4);
   if (req.body['email'] === '' || req.body['password'] === '') {
     res.status(404).redirect('/error');
     return;
@@ -114,15 +114,24 @@ app.post('/register', (req, res) => {
       return;
     }
   }
-  let newUser_id = generateRandomString(4);
   users[newUser_id] = {};
   users[newUser_id].email = req.body['email'];
   users[newUser_id].password = req.body['password'];
+  req.session.user_id = newUser_id;
+  res.redirect('/login');
+});
+
+app.post('/logout', (req, res) => {
+  req.session = null;
   res.redirect('/login');
 });
 
 // Home page
 app.get("/", (req, res) => {
+  let loginCookie = req.session.user_id;
+  if(!loginCookie) {
+    res.redirect('/error');
+  }
   res.render("index");
 });
 

@@ -31,8 +31,10 @@
         <textarea required="" id = "tmdbSearchText" name = "tmdbSearchText"></textarea>
         <input id = "tmdbSubmit" type="submit" name="tmdbSubmit" value = "search">
       </form>
-
-
+      <form action="/logout" method="POST">
+        <label for="user_id"></label>
+        <input class="btn btn-primary" type="Submit" value="logout">
+      </form>
     <nav>
       <ul>
         <li><a id = "movie-tab-selector"  href="#">Movie</a></li>
