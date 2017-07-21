@@ -24,23 +24,52 @@
 
   <body>
     <main>
-      <div id = "searchbar-div" >
+      <div class = "row">
 
-        <form id = "amazonSearchForm" method = "GET" action = "/">
-          <textarea required="" id = "amazonSearchText" name = "amazonSearchText"></textarea>
-          <input id = "amazonSubmit" type="submit" name="amazonSubmit" value = "Search products">
-        </form>
+        <div class = "col-sm-3"></div>
 
-        <form id = "yelpSearchForm" method = "GET" action = "/">
-          <textarea required="" id = "yelpSearchText" name = "yelpSearchText"></textarea>
-          <input id = "yelpSubmit" type="submit" name="yelpSubmit" value = "Search Restaurants">
-        </form>
+        <div class = "col-sm-6" id = "searchbar-div" >
 
-        <form id = "tmdbSearchForm" method = "GET" action = "/">
-          <textarea required="" id = "tmdbSearchText" name = "tmdbSearchText"></textarea>
-          <input id = "tmdbSubmit" type="submit" name="tmdbSubmit" value = "Search Movies">
-        </form>
+          <form id = "amazonSearchForm" method = "GET" action = "/">
+            <textarea required="" id = "amazonSearchText" name = "amazonSearchText" placeholder="what do you need to buy?"></textarea>
+            <input id = "amazonSubmit" type="submit" name="amazonSubmit" value = "Search products">
+          </form>
+
+          <form id = "yelpSearchForm" method = "GET" action = "/">
+            <textarea required="" id = "yelpSearchText" name = "yelpSearchText" placeholder="Feeling peckish?"></textarea>
+            <input id = "yelpSubmit" type="submit" name="yelpSubmit" value = "Search Restaurants">
+          </form>
+
+          <form id = "tmdbSearchForm" method = "GET" action = "/">
+            <textarea required="" id = "tmdbSearchText" name = "tmdbSearchText" placeholder="What movie do you wanna see?"></textarea>
+            <input id = "tmdbSubmit" type="submit" name="tmdbSubmit" value = "Search Movies">
+          </form>
+        </div>
+
+        <div class = "col-sm-3"></div>
       </div>
+
+      <div class = "suggestions-field">
+        <div class = row>
+
+   <!--        <div class = "col-sm-4 suggestion">
+            <h3>Bananna</h3>
+            <img src="https://images-na.ssl-images-amazon.com/images/I/4130CZVNWJL.jpg">
+          </div>
+
+          <div class = "col-sm-4 suggestion">
+            <h3>Bananna</h3>
+            <img src="https://images-na.ssl-images-amazon.com/images/I/4130CZVNWJL.jpg">
+          </div>
+
+          <div class = "col-sm-4 suggestion">
+            <h3>Bananna</h3>
+            <img src="https://images-na.ssl-images-amazon.com/images/I/4130CZVNWJL.jpg">
+          </div> -->
+
+        </div>
+      </div>
+
 
     <nav>
       <ul>
