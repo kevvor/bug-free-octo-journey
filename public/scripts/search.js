@@ -67,9 +67,6 @@ $(document).ready(function() {
 
 
 
-
-
-
   $('#amazonSearchForm').on('submit', function(event){
     event.preventDefault();
     $('.suggestion').remove();
@@ -135,18 +132,14 @@ $(document).ready(function() {
         if (result.total_results <= 0) console.log('error')
         else renderTmdb(result)
 
-
-
-
-
-
         console.log(result.results[0])
-
     })
-  });
-
-
-
-
-
 });
+
+
+
+
+
+
+
+
