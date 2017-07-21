@@ -79,6 +79,7 @@ $(document).ready(function() {
 
   $('#tmdbSearchForm').on('submit', function(event){
     event.preventDefault();
+    let suggestions = {};
     let searchTerms = $('#tmdbSearchText').val();
     console.log(searchTerms);
 
@@ -87,8 +88,11 @@ $(document).ready(function() {
       url: "/tmdbSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
+
         console.log(result.results[0]);
-        renderSuggestions();
+        console.log(result.results[1]);
+        console.log(result.results[2]);
+
     })
   });
 
