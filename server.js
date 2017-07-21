@@ -22,11 +22,17 @@ const client = amazon.createClient({
   awsSecret: secrets.awsSecret,
   awsTag: secrets.awsTag
 });
-
-var Yelp = require('yelp-v3');
-var yelp = new Yelp({
+//yelp keys
+const Yelp = require('yelp-v3');
+const yelp = new Yelp({
   access_token: secrets.access_token
 });
+
+//tmdb keys
+const tmdb = new (require('tmdbapi'))({
+    apiv3: '7d8ef982ea01e0242adda607f0ac0065'
+});
+
 
 
 
@@ -72,9 +78,9 @@ app.get("/amazonSearch", (req,res)=>{
   client.itemSearch({
     Keywords: req.query.userinput,
     responseGroup: 'ItemAttributes,Offers,Images'
-  }).then(function(results){
-    res.json(results);
-    console.log(results[0].LargeImage[0].URL[0]);
+  }).then(function(result){
+    res.json(result);
+    console.log(result[0].LargeImage[0].URL[0]);
   }).catch(function(err){
     console.log(err.Error[0].Message);
   });
@@ -90,6 +96,18 @@ app.get("/yelpSearch",(req,res)=>{
   .catch(function (err) {
     console.error(err);
   });
+})
+
+app.get("/tmdbSearch",(req,res)=>{
+  console.log(req.query.userinput)
+
+  tmdb.search.movie({query: req.query.userinput})
+  .then(function(result){
+    res.json(result)
+     console.log(result.results[0])
+  })
+  .catch(console.error);
+
 })
 
 
