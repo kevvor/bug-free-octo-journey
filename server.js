@@ -91,6 +91,7 @@ app.post("/login", (req, res)=>{
   for (let user_id in users) {
     if (users[user_id].email === req.body['email'] && req.body['password'] === users[user_id].password) {
       res.redirect("/");
+      console.log(users);
       return;
     }
   }
@@ -166,7 +167,6 @@ app.get("/yelpSearch",(req,res)=>{
 
 app.get("/tmdbSearch",(req,res)=>{
   console.log(req.query.userinput)
-
   tmdb.search.movie({query: req.query.userinput})
   .then(function(result){
     res.json(result)
