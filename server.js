@@ -1,16 +1,5 @@
 "use strict";
 
-const users = {
-  user1: {
-  email: 'email@test.com',
-  password: 'pwd'
-  },
-  user2: {
-    email: 'email2@test.com',
-    password: 'pwd'
-  }
-}
-
 require('dotenv').config();
 
 const PORT        = process.env.PORT || 8080;
@@ -46,8 +35,19 @@ const tmdb = new (require('tmdbapi'))({
     apiv3: '7d8ef982ea01e0242adda607f0ac0065'
 });
 
+function generateRandomString(length) { // generates a random string
+  let randomString = '';
+  let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (let i = 0; i < length; i++) {
+    randomString += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return randomString;
+}
+
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
+
+const users = {};
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -66,6 +66,7 @@ app.use("/styles", sass({
   debug: true,
   outputStyle: 'expanded'
 }));
+const cookieSession = require('cookie-session');
 app.use(cookieSession({
   name: 'session',
   secret: 'secret',
@@ -95,6 +96,29 @@ app.post("/login", (req, res)=>{
     }
   }
   res.redirect('/error');
+});
+
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+
+app.post('/register', (req, res) => {
+  if (req.body['email'] === '' || req.body['password'] === '') {
+    res.status(404).redirect('/error');
+    return;
+  }
+// check if email has already been assigned
+  for (let user_id in users) {
+    if (users[user_id].email === req.body['email']) {
+      res.status(404).redirect('/error');
+      return;
+    }
+  }
+  let newUser_id = generateRandomString(4);
+  users[newUser_id] = {};
+  users[newUser_id].email = req.body['email'];
+  users[newUser_id].password = req.body['password'];
+  res.redirect('/login');
 });
 
 // Home page
@@ -142,10 +166,6 @@ app.get("/tmdbSearch",(req,res)=>{
   .catch(console.error);
 
 })
-
-
-
-
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
