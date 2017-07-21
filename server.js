@@ -22,6 +22,9 @@ const client = amazon.createClient({
   awsSecret: secrets.awsSecret,
   awsTag: secrets.awsTag
 });
+
+
+
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 
