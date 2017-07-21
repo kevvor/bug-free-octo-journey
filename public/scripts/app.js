@@ -172,6 +172,7 @@ loadToDoItems();
     // server has exposed all of the possible paths to be called
 
 
+<<<<<<< HEAD
 // // Comment out all AJAX calls for now
 //   $.ajax({
 //     type: "GET",
@@ -200,14 +201,50 @@ loadToDoItems();
 // };
 
 // end of commented out AJAX calls
+=======
+      renderMovieItem(data);
+    }
+  });
+
+  $.ajax({
+    type: "GET",
+    url: '/books',
+    success: function(data) {
+      renderToDoItems(data);
+    }
+  });
+
+  $.ajax({
+    type: "GET",
+    url: '/books',
+    success: function(data) {
+      renderToDoItems(data);
+    }
+  });
+
+    $.ajax({
+    type: "GET",
+    url: '/books',
+    success: function(data) {
+      renderToDoItems(data);
+    }
+  });
+};
+>>>>>>> 484d1cdba6d390dc9911c827761476fffa184032
 
 // loadToDoItems(dataObj) // calls everything
 
 // $(selector).hide(speed, callback);
 
+<<<<<<< HEAD
 // $("").click(fast, function() {
 //   $("").
 // }
+=======
+$("").click(fast, function() {
+  // $("").
+})
+>>>>>>> 484d1cdba6d390dc9911c827761476fffa184032
 
   // '/todos/movies'
   // make 4 AJAX requests (within loadToDoItems):
@@ -216,8 +253,12 @@ loadToDoItems();
   // right now: work on getting page to load
   // user's to do lists
 
+<<<<<<< HEAD
 // $().on("click")
 
+=======
+$().on("click") {
+>>>>>>> 484d1cdba6d390dc9911c827761476fffa184032
 
 
 

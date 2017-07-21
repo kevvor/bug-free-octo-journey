@@ -13,6 +13,8 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
+const cookieSession = require('cookie-session');
+
 
 //amazon keys
 const secrets = require('./secrets')
@@ -33,11 +35,19 @@ const tmdb = new (require('tmdbapi'))({
     apiv3: '7d8ef982ea01e0242adda607f0ac0065'
 });
 
-
-
+function generateRandomString(length) { // generates a random string
+  let randomString = '';
+  let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (let i = 0; i < length; i++) {
+    randomString += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return randomString;
+}
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
+
+const users = {};
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -56,6 +66,11 @@ app.use("/styles", sass({
   debug: true,
   outputStyle: 'expanded'
 }));
+app.use(cookieSession({
+  name: 'session',
+  secret: 'secret',
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}));
 
 app.use(express.static("public"));
 
@@ -68,9 +83,61 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
+app.get("/login", (req, res)=>{
+  res.render("login");
+});
+
+app.post("/login", (req, res)=>{
+  for (let user_id in users) {
+    if (users[user_id].email === req.body['email'] && req.body['password'] === users[user_id].password) {
+      res.redirect("/");
+      console.log(users);
+      return;
+    }
+  }
+  res.redirect('/error');
+});
+
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+
+app.post('/register', (req, res) => {
+  let newUser_id = generateRandomString(4);
+  if (req.body['email'] === '' || req.body['password'] === '') {
+    res.status(404).redirect('/error');
+    return;
+  }
+// check if email has already been assigned
+  for (let user_id in users) {
+    if (users[user_id].email === req.body['email']) {
+      res.status(404).redirect('/error');
+      return;
+    }
+  }
+  users[newUser_id] = {};
+  users[newUser_id].email = req.body['email'];
+  users[newUser_id].password = req.body['password'];
+  req.session.user_id = newUser_id;
+  res.redirect('/login');
+});
+
+app.post('/logout', (req, res) => {
+  req.session = null;
+  res.redirect('/login');
+});
+
 // Home page
 app.get("/", (req, res) => {
+  let loginCookie = req.session.user_id;
+  if(!loginCookie) {
+    res.redirect('/error');
+  }
   res.render("index");
+});
+
+app.get ('/error', (req, res) => {
+  res.render('error');
 });
 
 app.get("/amazonSearch", (req,res)=>{
@@ -100,7 +167,6 @@ app.get("/yelpSearch",(req,res)=>{
 
 app.get("/tmdbSearch",(req,res)=>{
   console.log(req.query.userinput)
-
   tmdb.search.movie({query: req.query.userinput})
   .then(function(result){
     res.json(result)
@@ -109,10 +175,6 @@ app.get("/tmdbSearch",(req,res)=>{
   .catch(console.error);
 
 })
-
-
-
-
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
