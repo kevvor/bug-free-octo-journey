@@ -2,33 +2,33 @@ $(document).ready(function() {
 
 
 
-  function renderSuggestions(arrayToRender){
-  $('.suggestions-field').find('.row')
-    .append(
-      $('<div/>').addClass("col-sm-4 suggestion")
-        .append($('<h3/>').text(arrayToRender.name1))
-        .append($('<img/>').attr("src", arrayToRender.imgUrl1)).append($('<br/>'))
-        .append($('<span/>').text('testing1 testin testin')).append($('<br/>'))
-        .append($('<span/>').text('testing2 testin testin')).append($('<br/>'))
-        .append($('<span/>').text('testing3 testin testin'))
-    )
-    .append(
-      $('<div/>').addClass("col-sm-4 suggestion")
-        .append($('<h3/>').text(arrayToRender.name2))
-        .append($('<img/>').attr("src", arrayToRender.imgUrl2))
-        .append($('<span/>').text('testing1 testin testin'))
-        .append($('<span/>').text('testing2 testin testin'))
-        .append($('<span/>').text('testing3 testin testin'))
-    )
-    .append(
-      $('<div/>').addClass("col-sm-4 suggestion")
-        .append($('<h3/>').text(arrayToRender.name3))
-        .append($('<img/>').attr("src", arrayToRender.imgUrl3))
-        .append($('<span/>').text('testing testin testin'))
-        .append($('<span/>').text('testing testin testin'))
-        .append($('<span/>').text('testing testin testin'))
-    )
-  }
+  // function renderSuggestions(arrayToRender){
+  // $('.suggestions-field').find('.row')
+  //   .append(
+  //     $('<div/>').addClass("col-sm-4 suggestion")
+  //       .append($('<h3/>').text(arrayToRender.name1))
+  //       .append($('<img/>').attr("src", arrayToRender.imgUrl1)).append($('<br/>'))
+  //       .append($('<span/>').text('testing1 testin testin')).append($('<br/>'))
+  //       .append($('<span/>').text('testing2 testin testin')).append($('<br/>'))
+  //       .append($('<span/>').text('testing3 testin testin'))
+  //   )
+  //   .append(
+  //     $('<div/>').addClass("col-sm-4 suggestion")
+  //       .append($('<h3/>').text(arrayToRender.name2))
+  //       .append($('<img/>').attr("src", arrayToRender.imgUrl2))
+  //       .append($('<span/>').text('testing1 testin testin'))
+  //       .append($('<span/>').text('testing2 testin testin'))
+  //       .append($('<span/>').text('testing3 testin testin'))
+  //   )
+  //   .append(
+  //     $('<div/>').addClass("col-sm-4 suggestion")
+  //       .append($('<h3/>').text(arrayToRender.name3))
+  //       .append($('<img/>').attr("src", arrayToRender.imgUrl3))
+  //       .append($('<span/>').text('testing testin testin'))
+  //       .append($('<span/>').text('testing testin testin'))
+  //       .append($('<span/>').text('testing testin testin'))
+  //   )
+  // }
 
 
 
@@ -121,19 +121,23 @@ $(document).ready(function() {
       url: "/tmdbSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-        // suggestions['name1'] = result.results[0].title;
-        // suggestions['name2'] = result.results[1].title;
-        // suggestions['name3'] = result.results[2].title;
-        // let baseUrl = "http://image.tmdb.org/t/p/w185"
-        // suggestions['imgUrl1'] = `${baseUrl}${result.results[0].poster_path}`
-        // suggestions['imgUrl2'] = `${baseUrl}${result.results[1].poster_path}`
-        // suggestions['imgUrl3'] = `${baseUrl}${result.results[2].poster_path}`
-        // renderSuggestions(suggestions);
         if (result.total_results <= 0) console.log('error')
-        else renderTmdb(result)
-
-        console.log(result.results[0])
+        else if (result.total_results  < 3) {
+          console.log('error')
+          let emptyDivs = 3 - result.total_results;
+          for (let i = 0; i < result.total_results; i++){
+            renderTmdb(result,i);
+          }
+          $('.suggestions-field').find('.row')
+          .append($('<div/>').addClass(`col-sm-${emptyDivs*4} suggestion`))
+        }
+        else{
+          for (let i = 0; i < 3; i++){
+            renderTmdb(result, i)
+          }
+        }
     })
+  });
 });
 
 
