@@ -112,7 +112,7 @@ function loadToDoItems () {
 
 
       renderMovieItem(data);
-    })
+    }
   });
 
   $.ajax({
@@ -120,7 +120,7 @@ function loadToDoItems () {
     url: '/books',
     success: function(data) {
       renderToDoItems(data);
-    })
+    }
   });
 
   $.ajax({
@@ -128,7 +128,7 @@ function loadToDoItems () {
     url: '/books',
     success: function(data) {
       renderToDoItems(data);
-    })
+    }
   });
 
     $.ajax({
@@ -136,9 +136,8 @@ function loadToDoItems () {
     url: '/books',
     success: function(data) {
       renderToDoItems(data);
-    })
+    }
   });
-
 };
 
 loadToDoItems() // calls everything
@@ -146,8 +145,8 @@ loadToDoItems() // calls everything
 $(selector).hide(speed, callback);
 
 $("").click(fast, function() {
-  $("").
-}
+  // $("").
+})
 
   // '/todos/movies'
   // make 4 AJAX requests (within loadToDoItems):
@@ -156,7 +155,7 @@ $("").click(fast, function() {
   // right now: work on getting page to load
   // user's to do lists
 
-$().on("click")
+$().on("click") {
 
 }
 

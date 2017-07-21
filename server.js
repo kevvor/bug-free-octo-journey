@@ -1,5 +1,16 @@
 "use strict";
 
+const users = {
+  user1: {
+  email: 'email@test.com',
+  password: 'pwd'
+  },
+  user2: {
+    email: 'email2@test.com',
+    password: 'pwd'
+  }
+}
+
 require('dotenv').config();
 
 const PORT        = process.env.PORT || 8080;
@@ -13,6 +24,8 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
+const cookieSession = require('cookie-session');
+
 
 //amazon keys
 const secrets = require('./secrets')
@@ -32,9 +45,6 @@ const yelp = new Yelp({
 const tmdb = new (require('tmdbapi'))({
     apiv3: '7d8ef982ea01e0242adda607f0ac0065'
 });
-
-
-
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -56,6 +66,11 @@ app.use("/styles", sass({
   debug: true,
   outputStyle: 'expanded'
 }));
+app.use(cookieSession({
+  name: 'session',
+  secret: 'secret',
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}));
 
 app.use(express.static("public"));
 
@@ -68,9 +83,27 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
+app.get("/login", (req, res)=>{
+  res.render("login");
+});
+
+app.post("/login", (req, res)=>{
+  for (let user_id in users) {
+    if (users[user_id].email === req.body['email'] && req.body['password'] === users[user_id].password) {
+      res.redirect("/");
+      return;
+    }
+  }
+  res.redirect('/error');
+});
+
 // Home page
 app.get("/", (req, res) => {
   res.render("index");
+});
+
+app.get ('/error', (req, res) => {
+  res.render('error');
 });
 
 app.get("/amazonSearch", (req,res)=>{
