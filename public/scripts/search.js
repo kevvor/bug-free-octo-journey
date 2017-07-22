@@ -29,40 +29,87 @@ $(document).ready(function() {
   //       .append($('<span/>').text('testing testin testin'))
   //   )
   // }
-
-
+  let testdb = []
 
   function renderTmdb(apiInput, resultIndex){
     let baseUrl = "http://image.tmdb.org/t/p/w185"
+    let colClass = `col-sm-4 suggestion ${resultIndex}`
     $('.suggestions-field').find('.row')
     .append(
-      $('<div/>').addClass("col-sm-4 suggestion")
+      $('<div/>').addClass(colClass)
         .append($('<h3/>').text(apiInput.results[resultIndex].title))
         .append($('<img/>').attr("src", `${baseUrl}${apiInput.results[resultIndex].poster_path}`)).append($('<br/>'))
-        .append($('<span/>').text('testing1 testin testin')).append($('<br/>'))
-        .append($('<span/>').text('testing2 testin testin')).append($('<br/>'))
-        .append($('<span/>').text('testing3 testin testin'))
+        .append($('<span/>').text(`Released: ${apiInput.results[resultIndex].release_date}`)).append($('<br/>'))
+        .append($('<span/>').text(`TMDB user rating: ${apiInput.results[resultIndex].vote_average}/10`))
+
     )
+    $(`.suggestion.${resultIndex}`).on('click',function(){
+      testdb = [];
+      console.log(resultIndex);
+      testdb.push(apiInput.results[resultIndex]);
+      console.log(testdb)
+    })
+
   }
 
+
+  function renderYelp(apiInput, resultIndex){
+    let colClass = `col-sm-4 suggestion ${resultIndex}`
+    $('.suggestions-field').find('.row')
+    .append(
+      $('<div/>').addClass(colClass)
+        .append($('<h3/>').text(apiInput.businesses[resultIndex].name))
+        .append($('<img/>').attr("src", apiInput.businesses[resultIndex].image_url)).append($('<br/>'))
+        .append($('<span/>').text(`Address: ${apiInput.businesses[resultIndex].location.address1}`)).append($('<br/>'))
+        .append($('<span/>').text(`Yelp user rating: ${apiInput.businesses[resultIndex].rating}/10`))
+    )
+    $(`.suggestion.${resultIndex}`).on('click',function(){
+      testdb = [];
+      testdb.push(apiInput.businesses[resultIndex]);
+      console.log(testdb)
+    })
+
+  }
+
+  function renderAmazonProduct(apiInput, resultIndex, searchTerms){
+    let colClass = `col-sm-4 suggestion ${resultIndex}`
+    $('.suggestions-field').find('.row')
+    .append(
+      $('<div/>').addClass(colClass)
+        .append($('<h3/>').text(searchTerms))
+        .append($('<img/>').attr("src", apiInput[resultIndex].LargeImage[0].URL[0])).append($('<br/>'))
+        .append($('<span/>').text(apiInput[resultIndex].ItemAttributes[0].Title[0])).append($('<br/>'))
+        .append($('<a/>').attr("href", apiInput[resultIndex].DetailPageURL[0]).text('Buy now on Amazon')).append($('<br/>'))
+    )
+    $(`.suggestion.${resultIndex}`).on('click',function(){
+      testdb = [];
+      console.log(resultIndex);
+      testdb.push(apiInput[resultIndex]);
+      console.log(testdb)
+    })
+
+  }
 
 
   $('#movie-tab-selector').on('click',function(){
     $('#tmdbSearchForm').show();
     $('#amazonSearchForm').hide();
     $('#yelpSearchForm').hide();
+    $('.suggestion').remove();
   })
 
   $('#restaurant-tab-selector').on('click',function(){
     $('#tmdbSearchForm').hide();
     $('#amazonSearchForm').hide();
     $('#yelpSearchForm').show();
+    $('.suggestion').remove();
   })
 
   $('#product-tab-selector').on('click',function(){
     $('#tmdbSearchForm').hide();
     $('#amazonSearchForm').show();
     $('#yelpSearchForm').hide();
+    $('.suggestion').remove();
   })
 
 
@@ -70,20 +117,28 @@ $(document).ready(function() {
   $('#amazonSearchForm').on('submit', function(event){
     event.preventDefault();
     $('.suggestion').remove();
-    let suggestions = {};
     let searchTerms = $('#amazonSearchText').val();
-    suggestions['name1'] = searchTerms;
-    suggestions['name2'] = searchTerms;
-    suggestions['name3'] = searchTerms;
     $.ajax({
       method: "GET",
       url: "/amazonSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-        suggestions['imgUrl1'] = result[0].LargeImage[0].URL[0];
-        suggestions['imgUrl2'] = result[1].LargeImage[0].URL[0];
-        suggestions['imgUrl3'] = result[2].LargeImage[0].URL[0]
-        renderSuggestions(suggestions);
+      if (result.length <= 0) console.log('No results found.')
+      else if (result.length  < 3) {
+        console.log('error')
+        let emptyDivs = 3 - result.total_results;
+        for (let i = 0; i < result.total_results; i++){
+          renderAmazonProduct(result,i,searchTerms);
+        }
+        $('.suggestions-field').find('.row')
+        .append($('<div/>').addClass(`col-sm-${emptyDivs*4} suggestion`))
+      }
+      else{
+        for (let i = 0; i < 3; i++){
+          renderAmazonProduct(result, i, searchTerms);
+        }
+      }
+
 
     })
   });
@@ -91,7 +146,6 @@ $(document).ready(function() {
   $('#yelpSearchForm').on('submit', function(event){
     event.preventDefault();
     $('.suggestion').remove();
-    let suggestions = {};
     let searchTerms = $('#yelpSearchText').val();
 
     $.ajax({
@@ -99,13 +153,22 @@ $(document).ready(function() {
       url: "/yelpSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-      suggestions['name1'] = result.businesses[0].name
-      suggestions['name2'] = result.businesses[1].name
-      suggestions['name3'] = result.businesses[2].name
-      suggestions['imgUrl1'] = result.businesses[0].image_url
-      suggestions['imgUrl2'] = result.businesses[1].image_url
-      suggestions['imgUrl3'] = result.businesses[2].image_url
-      renderSuggestions(suggestions);
+      console.log(result);
+      if (result.total <= 0) console.log('No results found.')
+      else if (result.total_results  < 3) {
+        console.log('error')
+        let emptyDivs = 3 - result.total_results;
+        for (let i = 0; i < result.total_results; i++){
+          renderYelp(result,i);
+        }
+        $('.suggestions-field').find('.row')
+        .append($('<div/>').addClass(`col-sm-${emptyDivs*4} suggestion`))
+      }
+      else{
+        for (let i = 0; i < 3; i++){
+          renderYelp(result, i)
+        }
+      }
 
     })
   });
@@ -113,7 +176,7 @@ $(document).ready(function() {
   $('#tmdbSearchForm').on('submit', function(event){
     event.preventDefault();
     $('.suggestion').remove();
-    let suggestions = {};
+
     let searchTerms = $('#tmdbSearchText').val();
 
     $.ajax({
@@ -121,7 +184,7 @@ $(document).ready(function() {
       url: "/tmdbSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-        if (result.total_results <= 0) console.log('error')
+        if (result.total_results <= 0) console.log('No results found :(')
         else if (result.total_results  < 3) {
           console.log('error')
           let emptyDivs = 3 - result.total_results;
