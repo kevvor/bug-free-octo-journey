@@ -91,15 +91,6 @@ app.get("/login", (req, res)=>{
 });
 
 app.post("/login", (req, res)=>{
-  // for (let user_id in users) {
-  //   if (users[user_id].email === req.body['email'] && req.body['password'] === users[user_id].password) {
-  //     res.redirect("/");
-  //     console.log(users);
-  //     return;
-  //   }
-  //   console.log('out of loop, before redirect')
-  // }
-  // res.redirect('/error');
   knex('users').where({
     email: req.body.email,
     password: req.body.password
@@ -146,7 +137,7 @@ app.post('/register', (req, res) => {
   })
   }
   else {
-    console.log('email already exists')
+    console.log('email already exists');
   }
   })
   res.redirect('/login');
