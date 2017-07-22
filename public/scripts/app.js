@@ -82,7 +82,7 @@ function renderMovieItem (dataObj) {
   dataObj.forEach((obj, index) => {
     console.log(index);
     let movieItem = createMovieItem(obj);
-    $(".movies-list").append(movieItem);
+    $(".container").append(movieItem);
   });
 }
 
@@ -172,7 +172,7 @@ loadToDoItems();
     // server has exposed all of the possible paths to be called
 
 
-<<<<<<< HEAD
+
 // // Comment out all AJAX calls for now
 //   $.ajax({
 //     type: "GET",
@@ -201,35 +201,34 @@ loadToDoItems();
 // };
 
 // end of commented out AJAX calls
-=======
-      renderMovieItem(data);
-    }
-  });
+//       renderMovieItem(data);
+//     }
+//   });
 
-  $.ajax({
-    type: "GET",
-    url: '/books',
-    success: function(data) {
-      renderToDoItems(data);
-    }
-  });
+//   $.ajax({
+//     type: "GET",
+//     url: '/books',
+//     success: function(data) {
+//       renderToDoItems(data);
+//     }
+//   });
 
-  $.ajax({
-    type: "GET",
-    url: '/books',
-    success: function(data) {
-      renderToDoItems(data);
-    }
-  });
+//   $.ajax({
+//     type: "GET",
+//     url: '/books',
+//     success: function(data) {
+//       renderToDoItems(data);
+//     }
+//   });
 
-    $.ajax({
-    type: "GET",
-    url: '/books',
-    success: function(data) {
-      renderToDoItems(data);
-    }
-  });
-};
+//     $.ajax({
+//     type: "GET",
+//     url: '/books',
+//     success: function(data) {
+//       renderToDoItems(data);
+//     }
+//   });
+// };
 
 
 // loadToDoItems(dataObj) // calls everything
