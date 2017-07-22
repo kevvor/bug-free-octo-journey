@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+}
+
+main {
+  margin: 0 auto;
+  width: 1000px;
+  /*background-color: powderblue;*/
+  padding: 0px;
+  padding-top: 140px;
+}
+
+.nav{
+  width: 960px;
+}
+

@@ -173,7 +173,6 @@ function createProductItem (obj) {
 function renderMovieItem (dataObj) {
   // dataObj = dataObj.slice(0, 2);
   dataObj.forEach((obj, index) => {
-    console.log(index);
     let movieItem = createMovieItem(obj);
     $(".container").append(movieItem);
   });

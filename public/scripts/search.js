@@ -8,7 +8,7 @@ $(document).ready(function() {
     $('.suggestions-field').find('.row')
     .append(
       $('<div/>').addClass(colClass)
-        .append($('<h3/>').text(apiInput.results[resultIndex].title))
+        .append($('<h4/>').text(apiInput.results[resultIndex].title))
         .append($('<img/>').attr("src", `${baseUrl}${apiInput.results[resultIndex].poster_path}`)).append($('<br/>'))
         .append($('<span/>').text(`Released: ${apiInput.results[resultIndex].release_date}`)).append($('<br/>'))
         .append($('<span/>').text(`TMDB user rating: ${apiInput.results[resultIndex].vote_average}/10`))
@@ -27,7 +27,7 @@ $(document).ready(function() {
     $('.suggestions-field').find('.row')
     .append(
       $('<div/>').addClass(colClass)
-        .append($('<h3/>').text(apiInput.businesses[resultIndex].name))
+        .append($('<h4/>').text(apiInput.businesses[resultIndex].name))
         .append($('<img/>').attr("src", apiInput.businesses[resultIndex].image_url)).append($('<br/>'))
         .append($('<span/>').text(`Address: ${apiInput.businesses[resultIndex].location.address1}`)).append($('<br/>'))
         .append($('<span/>').text(`Yelp user rating: ${apiInput.businesses[resultIndex].rating}/5`))
@@ -44,7 +44,7 @@ $(document).ready(function() {
     $('.suggestions-field').find('.row')
     .append(
       $('<div/>').addClass(colClass)
-        .append($('<h3/>').text(searchTerms))
+        .append($('<h4/>').text(searchTerms))
         .append($('<img/>').attr("src", apiInput[resultIndex].LargeImage[0].URL[0])).append($('<br/>'))
         .append($('<span/>').text(apiInput[resultIndex].ItemAttributes[0].Title[0])).append($('<br/>'))
         .append($('<a/>').attr("href", apiInput[resultIndex].DetailPageURL[0]).text('Buy now on Amazon')).append($('<br/>'))
@@ -68,12 +68,13 @@ $(document).ready(function() {
     $('.suggestions-field').find('.row')
     .append(
       $('<div/>').addClass(colClass)
-        .append($('<h3/>').text(apiInput[resultIndex].title))
+        .append($('<h4/>').text(apiInput[resultIndex].title))
         .append($('<img/>').attr("src", apiInput[resultIndex].thumbnail)).append($('<br/>'))
         .append($('<span/>').text(`Author(s): ${authorList}`)).append($('<br/>'))
         .append($('<span/>').text(`Google books user rating: ${apiInput[resultIndex].averageRating}/5`))
     )
     $(`.suggestion.${resultIndex}`).on('click',function(){
+
       testdb = [];
       testdb.push(apiInput[resultIndex]);
       console.log(testdb)
@@ -87,6 +88,7 @@ $(document).ready(function() {
     $('#amazonSearchForm').hide();
     $('#yelpSearchForm').hide();
     $('#googleBooksSearchForm').hide();
+    $('.suggestions-field').slideUp();
     $('.suggestion').remove();
   })
 
@@ -95,6 +97,7 @@ $(document).ready(function() {
     $('#amazonSearchForm').hide();
     $('#yelpSearchForm').show();
     $('#googleBooksSearchForm').hide();
+    $('.suggestions-field').slideUp();
     $('.suggestion').remove();
   })
 
@@ -103,6 +106,7 @@ $(document).ready(function() {
     $('#amazonSearchForm').show();
     $('#yelpSearchForm').hide();
     $('#googleBooksSearchForm').hide();
+    $('.suggestions-field').slideUp();
     $('.suggestion').remove();
   })
 
@@ -111,6 +115,7 @@ $(document).ready(function() {
     $('#amazonSearchForm').hide();
     $('#yelpSearchForm').hide();
     $('#googleBooksSearchForm').show();
+    $('.suggestions-field').slideUp();
     $('.suggestion').remove();
   })
 
@@ -118,6 +123,7 @@ $(document).ready(function() {
 
   $('#amazonSearchForm').on('submit', function(event){
     event.preventDefault();
+    $('.suggestions-field').slideUp();
     $('.suggestion').remove();
     let searchTerms = $('#amazonSearchText').val();
     $.ajax({
@@ -133,11 +139,13 @@ $(document).ready(function() {
         }
         $('.suggestions-field').find('.row')
         .append($('<div/>').addClass(`col-sm-${emptyDivs*4} suggestion`))
+        $('.suggestions-field').slideDown();
       }
       else{
         for (let i = 0; i < 3; i++){
           renderAmazonProduct(result, i, searchTerms);
         }
+        $('.suggestions-field').slideDown();
       }
 
 
@@ -146,6 +154,7 @@ $(document).ready(function() {
 
   $('#yelpSearchForm').on('submit', function(event){
     event.preventDefault();
+    $('.suggestions-field').slideUp();
     $('.suggestion').remove();
     let searchTerms = $('#yelpSearchText').val();
 
@@ -163,10 +172,12 @@ $(document).ready(function() {
         }
         $('.suggestions-field').find('.row')
         .append($('<div/>').addClass(`col-sm-${emptyDivs*4} suggestion`))
+        $('.suggestions-field').slideDown();
       }
       else{
         for (let i = 0; i < 3; i++){
           renderYelp(result, i)
+          $('.suggestions-field').slideDown();
         }
       }
 
@@ -175,6 +186,7 @@ $(document).ready(function() {
 
   $('#tmdbSearchForm').on('submit', function(event){
     event.preventDefault();
+    $('.suggestions-field').slideUp();
     $('.suggestion').remove();
 
     let searchTerms = $('#tmdbSearchText').val();
@@ -192,10 +204,12 @@ $(document).ready(function() {
           }
           $('.suggestions-field').find('.row')
           .append($('<div/>').addClass(`col-sm-${emptyDivs*4} suggestion`))
+          $('.suggestions-field').slideDown();
         }
         else{
           for (let i = 0; i < 3; i++){
             renderTmdb(result, i)
+            $('.suggestions-field').slideDown();
           }
         }
     })
@@ -203,10 +217,9 @@ $(document).ready(function() {
 
   $('#googleBooksSearchForm').on('submit', function(event){
     event.preventDefault();
+    $('.suggestions-field').slideUp();
     $('.suggestion').remove();
-
     let searchTerms = $('#googleBooksSearchText').val();
-
     $.ajax({
       method: "GET",
       url: "/googleBooksSearch",
@@ -220,10 +233,12 @@ $(document).ready(function() {
           }
           $('.suggestions-field').find('.row')
           .append($('<div/>').addClass(`col-sm-${emptyDivs*4} suggestion`))
+          $('.suggestions-field').slideDown();
         }
         else{
           for (let i = 0; i < 3; i++){
             renderGoogleBooks(result, i)
+            $('.suggestions-field').slideDown();
           }
         }
     })

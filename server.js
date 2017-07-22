@@ -85,20 +85,30 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
 
+
 app.get("/login", (req, res)=>{
   res.render("login");
 });
 
 app.post("/login", (req, res)=>{
-  for (let user_id in users) {
-    if (users[user_id].email === req.body['email'] && req.body['password'] === users[user_id].password) {
-      res.redirect("/");
-      console.log(users);
-      return;
+  knex('users').where({
+    email: req.body.email,
+    password: req.body.password
+  }).select('id')
+  .asCallback(function (err, result) {
+    if (err) {
+      console.log(err)
     }
-    console.log('out of loop, before redirect')
-  }
-  res.redirect('/error');
+    console.log('result login: '+result)
+    if (result.length == 1) {
+      console.log('result[0] '+result[0])
+      req.session.user_id = result[0].id //set cookie to primary
+      res.redirect('/');
+    }
+    else {
+      res.redirect('/error')
+    }
+  })
 });
 
 app.get('/register', (req, res) => {
@@ -106,22 +116,30 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/register', (req, res) => {
-  let newUser_id = generateRandomString(4);
-  if (req.body['email'] === '' || req.body['password'] === '') {
-    res.status(404).redirect('/error');
-    return;
+  knex('users').where({
+    email: req.body['email']}).select('id')
+  .asCallback(function (err, result) {
+  if (err) {
+    console.log(err)
   }
-// check if email has already been assigned
-  for (let user_id in users) {
-    if (users[user_id].email === req.body['email']) {
-      res.status(404).redirect('/error');
-      return;
+  if (result.length == 0) {
+  knex.insert(
+    [{email: req.body['email'],
+      password: req.body['password']}],
+      'id')
+  .returning('id')
+  .into('users')
+  .asCallback(function (err, result) {
+    if (err) {
+      console.log(err)
     }
+    req.session.user_id = result //set cookie to primary
+  })
   }
-  users[newUser_id] = {};
-  users[newUser_id].email = req.body['email'];
-  users[newUser_id].password = req.body['password'];
-  req.session.user_id = newUser_id;
+  else {
+    console.log('email already exists');
+  }
+  })
   res.redirect('/login');
 });
 
@@ -138,6 +156,10 @@ app.get("/", (req, res) => {
   }
   res.render("index");
 });
+
+// app.get("/user/:cookieId", (req, res) => {
+
+// });
 
 app.get ('/error', (req, res) => {
   res.render('error');
