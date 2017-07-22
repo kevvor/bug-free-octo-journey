@@ -1,34 +1,5 @@
 $(document).ready(function() {
 
-
-
-  // function renderSuggestions(arrayToRender){
-  // $('.suggestions-field').find('.row')
-  //   .append(
-  //     $('<div/>').addClass("col-sm-4 suggestion")
-  //       .append($('<h3/>').text(arrayToRender.name1))
-  //       .append($('<img/>').attr("src", arrayToRender.imgUrl1)).append($('<br/>'))
-  //       .append($('<span/>').text('testing1 testin testin')).append($('<br/>'))
-  //       .append($('<span/>').text('testing2 testin testin')).append($('<br/>'))
-  //       .append($('<span/>').text('testing3 testin testin'))
-  //   )
-  //   .append(
-  //     $('<div/>').addClass("col-sm-4 suggestion")
-  //       .append($('<h3/>').text(arrayToRender.name2))
-  //       .append($('<img/>').attr("src", arrayToRender.imgUrl2))
-  //       .append($('<span/>').text('testing1 testin testin'))
-  //       .append($('<span/>').text('testing2 testin testin'))
-  //       .append($('<span/>').text('testing3 testin testin'))
-  //   )
-  //   .append(
-  //     $('<div/>').addClass("col-sm-4 suggestion")
-  //       .append($('<h3/>').text(arrayToRender.name3))
-  //       .append($('<img/>').attr("src", arrayToRender.imgUrl3))
-  //       .append($('<span/>').text('testing testin testin'))
-  //       .append($('<span/>').text('testing testin testin'))
-  //       .append($('<span/>').text('testing testin testin'))
-  //   )
-  // }
   let testdb = []
 
   function renderTmdb(apiInput, resultIndex){
@@ -95,6 +66,7 @@ $(document).ready(function() {
     $('#tmdbSearchForm').show();
     $('#amazonSearchForm').hide();
     $('#yelpSearchForm').hide();
+    $('#googleBooksSearchForm').hide();
     $('.suggestion').remove();
   })
 
@@ -102,6 +74,7 @@ $(document).ready(function() {
     $('#tmdbSearchForm').hide();
     $('#amazonSearchForm').hide();
     $('#yelpSearchForm').show();
+    $('#googleBooksSearchForm').hide();
     $('.suggestion').remove();
   })
 
@@ -109,8 +82,17 @@ $(document).ready(function() {
     $('#tmdbSearchForm').hide();
     $('#amazonSearchForm').show();
     $('#yelpSearchForm').hide();
+    $('#googleBooksSearchForm').hide();
     $('.suggestion').remove();
   })
+
+  $('#book-tab-selector').on('click',function(){
+    $('#tmdbSearchForm').hide();
+    $('#amazonSearchForm').hide();
+    $('#yelpSearchForm').hide();
+    $('#googleBooksSearchForm').show();
+    $('.suggestion').remove();
+
 
 
 

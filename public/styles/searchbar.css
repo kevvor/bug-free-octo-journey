@@ -5,6 +5,9 @@ form#amazonSearchForm{
 form#yelpSearchForm{
   display: none;
 }
+form#googleBooksSearchForm{
+  display: none;
+}
 form#tmdbSearchForm{
 }
 
