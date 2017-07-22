@@ -14,6 +14,20 @@ $(document).ready(function() {
 //   _viewModel = viewmodel;
 // }
 
+let dataBase = response.rows[0];
+
+dataBase.movie_image
+
+// Everything that's rendered for movies etc etc
+viewModel.response.rows[0].movietitle
+viewModel.response.rows[0].moviename
+// etc etc
+
+let viewmodel  = {
+
+}
+
+
 let _viewModel = {
   dataMovies: [{
     category: 'movies',
@@ -61,7 +75,10 @@ function createMovieItem (obj) {
         <div class="media">
           <div class="media-left" "media-middle">
             <a href="#"">
-              <img class="media-object" src="${obj.img}" alt="image">
+
+              <img class="media-object" src="${dataBase.movie_image}" alt="image">
+
+
             </a>
           </div>
           <div class="media-body">
