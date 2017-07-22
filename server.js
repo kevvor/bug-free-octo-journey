@@ -94,6 +94,7 @@ app.post("/login", (req, res)=>{
       console.log(users);
       return;
     }
+    console.log('out of loop, before redirect')
   }
   res.redirect('/error');
 });
