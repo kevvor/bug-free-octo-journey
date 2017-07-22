@@ -14,18 +14,18 @@ $(document).ready(function() {
 //   _viewModel = viewmodel;
 // }
 
-let dataBase = response.rows[0];
+// let dataBase = response.rows[0];
 
-dataBase.movie_image
+// dataBase.movie_image
 
-// Everything that's rendered for movies etc etc
-viewModel.response.rows[0].movietitle
-viewModel.response.rows[0].moviename
-// etc etc
+// // Everything that's rendered for movies etc etc
+// viewModel.response.rows[0].movietitle
+// viewModel.response.rows[0].moviename
+// // etc etc
 
-let viewmodel  = {
+// let viewmodel  = {
 
-}
+// }
 
 
 let _viewModel = {
@@ -76,8 +76,8 @@ function createMovieItem (obj) {
           <div class="media-left" "media-middle">
             <a href="#"">
 
-              <img class="media-object" src="${dataBase.movie_image}" alt="image">
 
+              <img class="media-object" src="${obj.img}" alt="image">
 
             </a>
           </div>
@@ -94,6 +94,8 @@ function createMovieItem (obj) {
       </div>`
     return (newMovieItem);
   };
+
+// <img class="media-object" src="${dataBase.movie_image}" alt="image">
 
 function createBookItem (obj) {
   let newBookItem = `
