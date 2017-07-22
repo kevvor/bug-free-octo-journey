@@ -34,6 +34,8 @@ const yelp = new Yelp({
 const tmdb = new (require('tmdbapi'))({
     apiv3: '7d8ef982ea01e0242adda607f0ac0065'
 });
+//Google books doesn't even need a key wat
+const books = require('google-books-search');
 
 function generateRandomString(length) { // generates a random string
   let randomString = '';
@@ -94,6 +96,7 @@ app.post("/login", (req, res)=>{
       console.log(users);
       return;
     }
+    console.log('out of loop, before redirect')
   }
   res.redirect('/error');
 });
@@ -175,6 +178,20 @@ app.get("/tmdbSearch",(req,res)=>{
   .catch(console.error);
 
 })
+
+app.get("/googleBooksSearch",(req,res)=>{
+  console.log(req.query.userinput);
+  books.search(req.query.userinput, function(error, result) {
+    if ( ! error ) {
+        res.json(result)
+        console.log(result);
+    } else {
+        console.log(error);
+    }
+  });
+
+})
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
