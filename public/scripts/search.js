@@ -15,17 +15,23 @@ $(document).ready(function() {
         .append($('<button/>').addClass('btn btn-default').text('Pin this movie!'))
     )
     $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
-      testdb = [];
+      // testdb = [];
 
       // console.log(resultIndex);
-      testdb.push(apiInput.results[resultIndex]);
+
+      // testdb.push(apiInput.results[resultIndex]);
+
       // console.log(testdb)
 
       let poster_URL = `${baseUrl}${apiInput.results[resultIndex].poster_path}`
       $.ajax({
-      method: "POST",
-      url: "/",
-      data: {"title": apiInput.results[resultIndex].title, "img": poster_URL, "rating":apiInput.results[resultIndex].vote_average}
+        method: "POST",
+        url: "/",
+        data: {"category": "movie",
+               "title": apiInput.results[resultIndex].title,
+               "img": poster_URL,
+               "rating":apiInput.results[resultIndex].vote_average
+        }
       })
       // testdb.push(apiInput.results[resultIndex]);
     })
@@ -44,9 +50,18 @@ $(document).ready(function() {
         .append($('<button/>').addClass('btn btn-default').text('Pin to place'))
     )
     $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
-      testdb = [];
-      testdb.push(apiInput.businesses[resultIndex]);
+      // testdb = [];
+      // testdb.push(apiInput.businesses[resultIndex]);
       // console.log(testdb)
+      $.ajax({
+        method: "POST",
+        url: "/",
+        data: {"category": "place",
+               "title": apiInput.businesses[resultIndex].name,
+               "img": apiInput.businesses[resultIndex].image_url,
+               "address": apiInput.businesses[resultIndex].location.address1
+        }
+      })
     })
   }
 
@@ -62,8 +77,16 @@ $(document).ready(function() {
         .append($('<button/>').addClass('btn btn-default').text('Pin to shopping list'))
     )
     $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
-      testdb = [];
-      testdb.push(apiInput[resultIndex]);
+      // testdb = [];
+      // testdb.push(apiInput[resultIndex]);
+      $.ajax({
+        method: "POST",
+        url: "/",
+        data: {"category": "product",
+               "title": searchTerms,
+               "img": apiInput[resultIndex].LargeImage[0].URL[0]
+        }
+      })
       // console.log(testdb)
     })
   }
@@ -87,9 +110,19 @@ $(document).ready(function() {
     )
     $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
 
-      testdb = [];
-      testdb.push(apiInput[resultIndex]);
+      // testdb = [];
+      // testdb.push(apiInput[resultIndex]);
       // console.log(testdb)
+
+      $.ajax({
+        method: "POST",
+        url: "/",
+        data: {"category": "book",
+               "title": apiInput.results[resultIndex].title,
+               "img": apiInput[resultIndex].thumbnail,
+               "author": authorList
+        }
+      })
     })
   }
 
