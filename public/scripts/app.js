@@ -36,13 +36,13 @@ function createBookItem (obj) {
         <div class="media">
           <div class="media-left" "media-middle">
             <a href="#"">
-              <img class="media-object" src="${database.book_image}" alt="image">
+              <img class="media-object" src="${obj.book_image}" alt="image">
             </a>
           </div>
           <div class="media-body">
-            <h4 class="media-heading">${dataBase.book_name}</h4>
+            <h4 class="media-heading">${obj.book_name}</h4>
             <ul>
-              <li class="author">${database.book_author}</li>
+              <li class="author">${obj.book_author}</li>
             </ul>
           </div>
         </div>
@@ -59,13 +59,13 @@ function createPlaceItem (obj) {
         <div class="media">
           <div class="media-left" "media-middle">
             <a href="#"">
-              <img class="media-object" src="${database.place_image}" alt="image">
+              <img class="media-object" src="${obj.place_image}" alt="image">
             </a>
           </div>
           <div class="media-body">
-            <h4 class="media-heading">${database.place_name}</h4>
+            <h4 class="media-heading">${obj.place_name}</h4>
             <ul>
-              <li class="address">${database.place_address}</li>
+              <li class="address">${obj.place_address}</li>
             </ul>
           </div>
         </div>
@@ -82,11 +82,11 @@ function createProductItem (obj) {
         <div class="media">
           <div class="media-left" "media-middle">
             <a href="#"">
-              <img class="media-object" src="${database.product_image}" alt="image">
+              <img class="media-object" src="${obj.product_image}" alt="image">
             </a>
           </div>
           <div class="media-body">
-            <h4 class="media-heading">${database.product_name}</h4>
+            <h4 class="media-heading">${obj.product_name}</h4>
           </div>
         </div>
       </div>
@@ -94,43 +94,59 @@ function createProductItem (obj) {
   return (newProductItem);
 };
 
-function renderMovieItem (dataObj) {
-  console.log('in movie render')
-  dataObj.forEach((obj, index) => {
-    let movieItem = createMovieItem(obj);
-    $(".movies-list").append(movieItem);
-  });
-}
+$.ajax({
+      method: "GET",
+      url: "/api/users",
+    }).done((response)=>{
+      console.log(response);
+      let movieItem = createMovieItem(response);
+      let bookItem = createBookItem(response);
+      let productItem = createProductItem(response);
+      let placeItem = createPlaceItem(response);
+      $(".movies-list").append(movieItem);
+      $(".books-list").append(bookItem);
+      $(".places-list").append(placeItem);
+      $(".products-list").append(productItem);
 
-function renderBookItem (dataObj) {
-  dataObj.forEach((obj, index) => {
-    console.log(index);
-    let bookItem = createBookItem(obj);
-    $(".books-list").append(bookItem);
-  });
-}
+});
 
-function renderPlaceItem (dataObj) {
-  dataObj.forEach((obj, index) => {
-    console.log(index);
-    let placeItem = createPlaceItem(obj);
-    $(".places-list").append(placeItem);
-  });
-}
+// function renderMovieItem (dataObj) {
+//   console.log('in movie render')
+//   dataObj.forEach((obj, index) => {
+//     let movieItem = createMovieItem(obj);
+//     $(".movies-list").append(movieItem);
+//   });
+// }
 
-function renderProductItem (dataObj) {
-  dataObj.forEach((obj, index) => {
-    console.log(index);
-    let productItem = createProductItem(obj);
-    $(".products-list").append(productItem);
-  });
-}
+// function renderBookItem (dataObj) {
+//   dataObj.forEach((obj, index) => {
+//     console.log(index);
+//     let bookItem = createBookItem(obj);
+//     $(".books-list").append(bookItem);
+//   });
+// }
 
-function renderToDoItems (database) {
-  renderMovieItem(database);
-  renderBookItem(database);
-  renderPlaceItem(database);
-  renderProductItem(database);
+// function renderPlaceItem (dataObj) {
+//   dataObj.forEach((obj, index) => {
+//     console.log(index);
+//     let placeItem = createPlaceItem(obj);
+//     $(".places-list").append(placeItem);
+//   });
+// }
+
+// function renderProductItem (dataObj) {
+//   dataObj.forEach((obj, index) => {
+//     console.log(index);
+//     let productItem = createProductItem(obj);
+//     $(".products-list").append(productItem);
+//   });
+// }
+
+// function renderToDoItems (database) {
+//   renderMovieItem(database);
+  // renderBookItem(database);
+  // renderPlaceItem(database);
+  // renderProductItem(database);
 };
 
 
@@ -146,16 +162,8 @@ function renderToDoItems (database) {
 //   });
 // }
 
-$.ajax({
-      method: "GET",
-      url: "/api/users",
-    }).done((response)=>{
 
-      let movieItem = createMovieItem(response);
-      $(".movies-list").append(movieItem);
-      console.log(response);
 
-    });
 
 // loadToDoItems();
 
