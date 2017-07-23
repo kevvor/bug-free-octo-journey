@@ -3,6 +3,7 @@
   background-color: #59A5D8;
   position: fixed;
   width: 100%;
+  z-index: 1000;
 }
 
 .logout{

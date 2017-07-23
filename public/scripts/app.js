@@ -1,6 +1,9 @@
 $(document).ready(function() {
 
-let database = response.rows[0];
+
+
+// let database = response.rows[0];
+// console.log(response)
 
 function createMovieItem (obj) {
   let newMovieItem = `
@@ -10,14 +13,13 @@ function createMovieItem (obj) {
         <div class="media">
           <div class="media-left" "media-middle">
             <a href="#"">
-              <img class="media-object" src="${database.movie_image}" alt="image">
+              <img class="media-object" src="${obj.movie_image}" alt="image">
             </a>
           </div>
           <div class="media-body">
-            <h4 class="media-heading">${database.movie_name}</h4>
+            <h4 class="media-heading">${obj.movie_name}</h4>
             <ul>
-              <li class="rating">${database.movie_rating}</li>
-              <li class="voteaverage">${database.vote_average}</li>
+              <li class="rating">${obj.movie_rating}</li>
             </ul>
           </div>
         </div>
@@ -93,9 +95,10 @@ function createProductItem (obj) {
 };
 
 function renderMovieItem (dataObj) {
+  console.log('in movie render')
   dataObj.forEach((obj, index) => {
     let movieItem = createMovieItem(obj);
-    $(".container").append(movieItem);
+    $(".movies-list").append(movieItem);
   });
 }
 
@@ -103,7 +106,7 @@ function renderBookItem (dataObj) {
   dataObj.forEach((obj, index) => {
     console.log(index);
     let bookItem = createBookItem(obj);
-    $(".container").append(bookItem);
+    $(".books-list").append(bookItem);
   });
 }
 
@@ -111,7 +114,7 @@ function renderPlaceItem (dataObj) {
   dataObj.forEach((obj, index) => {
     console.log(index);
     let placeItem = createPlaceItem(obj);
-    $(".container").append(placeItem);
+    $(".places-list").append(placeItem);
   });
 }
 
@@ -119,11 +122,11 @@ function renderProductItem (dataObj) {
   dataObj.forEach((obj, index) => {
     console.log(index);
     let productItem = createProductItem(obj);
-    $(".container").append(productItem);
+    $(".products-list").append(productItem);
   });
 }
 
-function loadToDoItems () {
+function renderToDoItems (database) {
   renderMovieItem(database);
   renderBookItem(database);
   renderPlaceItem(database);
@@ -133,18 +136,28 @@ function loadToDoItems () {
 
 
 
-function loadToDoItems () {
+// function loadToDoItems () {
+//   $.ajax({
+//     type: "GET",
+//     url: '/api/users',
+//     success: function(database) {
+//       renderToDoItems(database);
+//     }
+//   });
+// }
 
-  $.ajax({
-    type: "GET",
-    url: '/api/users',
-    success: function(database) {
-      renderToDoItems(database);
-    }
-  });
-}
+$.ajax({
+      method: "GET",
+      url: "/api/users",
+    }).done((response)=>{
 
-loadToDoItems();
+      let movieItem = createMovieItem(response);
+      $(".movies-list").append(movieItem);
+      console.log(response);
+
+    });
+
+// loadToDoItems();
 
 });
 

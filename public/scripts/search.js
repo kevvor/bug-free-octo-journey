@@ -109,7 +109,7 @@ $(document).ready(function() {
         .append($('<button/>').addClass('btn btn-default').text('Pin to reading list'))
     )
     $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
-
+      console.log('in books')
       // testdb = [];
       // testdb.push(apiInput[resultIndex]);
       // console.log(testdb)
@@ -118,7 +118,7 @@ $(document).ready(function() {
         method: "POST",
         url: "/",
         data: {"category": "book",
-               "title": apiInput.results[resultIndex].title,
+               "title": apiInput[resultIndex].title,
                "img": apiInput[resultIndex].thumbnail,
                "author": authorList
         }
@@ -135,6 +135,12 @@ $(document).ready(function() {
     $('#googleBooksSearchForm').hide();
     $('.suggestions-field').slideUp();
     $('.suggestion').remove();
+
+    $('.movies-list').show();
+    $('.books-list').hide();
+    $('.places-list').hide();
+    $('.products-list').hide();
+
   })
 
   $('#restaurant-tab-selector').on('click',function(){
@@ -144,6 +150,11 @@ $(document).ready(function() {
     $('#googleBooksSearchForm').hide();
     $('.suggestions-field').slideUp();
     $('.suggestion').remove();
+
+    $('.movies-list').hide();
+    $('.books-list').hide();
+    $('.places-list').show();
+    $('.products-list').hide();
   })
 
   $('#product-tab-selector').on('click',function(){
@@ -153,6 +164,11 @@ $(document).ready(function() {
     $('#googleBooksSearchForm').hide();
     $('.suggestions-field').slideUp();
     $('.suggestion').remove();
+
+    $('.movies-list').hide();
+    $('.books-list').hide();
+    $('.places-list').show();
+    $('.products-list').hide();
   })
 
   $('#book-tab-selector').on('click',function(){
@@ -162,6 +178,11 @@ $(document).ready(function() {
     $('#googleBooksSearchForm').show();
     $('.suggestions-field').slideUp();
     $('.suggestion').remove();
+
+    $('.movies-list').hide();
+    $('.books-list').show();
+    $('.places-list').hide();
+    $('.products-list').hide();
   })
 
 

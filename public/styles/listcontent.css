@@ -1,0 +1,10 @@
+img.media-object{
+  height: 80px;
+  width: 80px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.movie{
+  margin-top: 15px;
+}
