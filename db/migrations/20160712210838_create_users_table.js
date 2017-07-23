@@ -9,7 +9,7 @@ exports.up = function(knex, Promise) {
       table.increments();
       table.text('name');
       table.text('img');
-      table.integer('vote_average');
+      table.float('vote_average');
     }),
     knex.schema.createTable('books', function(table){
       table.increments();
