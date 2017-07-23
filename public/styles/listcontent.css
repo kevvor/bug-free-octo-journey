@@ -1,0 +1,23 @@
+img.media-object{
+  height: 80px;
+  width: 80px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.col-md-7{
+
+  margin-top: 15px;
+}
+
+.movies-list{
+}
+.books-list{
+  display: none;
+}
+.places-list{
+  display: none;
+}
+.products-list{
+  display: none;
+}
