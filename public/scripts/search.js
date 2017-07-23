@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-  let testdb = []
+
 
   function renderTmdb(apiInput, resultIndex){
     let baseUrl = "http://image.tmdb.org/t/p/w185"

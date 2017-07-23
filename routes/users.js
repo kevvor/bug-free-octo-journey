@@ -6,6 +6,7 @@ const router  = express.Router();
 module.exports = (knex) => {
 
   router.get("/", (req, res) => {
+    let responseObj = {};
 
     knex.raw(
       `SELECT
@@ -19,7 +20,7 @@ module.exports = (knex) => {
       ON m.id = um.movies_id
       WHERE u.id = ?`, [req.session.user_id])
     .then(function(movieResponse) {
-      console.log(movieResponse.rows);
+      responseObj["movielist"] = movieResponse;
     })
     knex.raw(
       `SELECT
@@ -33,7 +34,7 @@ module.exports = (knex) => {
       ON b.id = ub.books_id
       WHERE u.id = ?`, [req.session.user_id])
     .then(function(bookResponse){
-      console.log(bookResponse.rows)
+      responseObj["booklist"] = bookResponse;
     })
     knex.raw(
       `SELECT
@@ -46,7 +47,7 @@ module.exports = (knex) => {
       ON pr.id = upr.products_id
       WHERE u.id = ?`, [req.session.user_id])
     .then(function(productResponse){
-      console.log(productResponse.rows)
+      responseObj["productlist"] = productResponse;
     })
     knex.raw(
       `SELECT
@@ -60,8 +61,10 @@ module.exports = (knex) => {
       ON pl.id = upl.places_id
       WHERE u.id = ?`, [req.session.user_id])
     .then(function(placeResponse){
-      console.log(placeResponse.rows)
+      responseObj["placelist"] = placeResponse
+      res.json(responseObj);
     })
+
   });
 
   router.post("/", (req, res) => {
