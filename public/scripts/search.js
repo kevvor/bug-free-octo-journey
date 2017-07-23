@@ -12,9 +12,11 @@ $(document).ready(function() {
         .append($('<img/>').attr("src", `${baseUrl}${apiInput.results[resultIndex].poster_path}`)).append($('<br/>'))
         .append($('<span/>').text(`Released: ${apiInput.results[resultIndex].release_date}`)).append($('<br/>'))
         .append($('<span/>').text(`TMDB user rating: ${apiInput.results[resultIndex].vote_average}/10`))
+        .append($('<button/>').addClass('btn btn-default').text('Pin this movie!'))
     )
-    $(`.suggestion.${resultIndex}`).on('click',function(){
+    $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
       testdb = [];
+
       // console.log(resultIndex);
       testdb.push(apiInput.results[resultIndex]);
       // console.log(testdb)
@@ -23,6 +25,17 @@ $(document).ready(function() {
       method: "POST",
       url: "/"
       })
+
+      testdb.push(apiInput.results[resultIndex]);
+      console.log(testdb)
+
+      // $.ajax({
+      // method: "POST",
+      // url: "/",
+      // data: {"userinput":searchTerms}
+      // })
+
+
     })
   }
 
@@ -36,8 +49,9 @@ $(document).ready(function() {
         .append($('<img/>').attr("src", apiInput.businesses[resultIndex].image_url)).append($('<br/>'))
         .append($('<span/>').text(`Address: ${apiInput.businesses[resultIndex].location.address1}`)).append($('<br/>'))
         .append($('<span/>').text(`Yelp user rating: ${apiInput.businesses[resultIndex].rating}/5`))
+        .append($('<button/>').addClass('btn btn-default').text('Pin to place'))
     )
-    $(`.suggestion.${resultIndex}`).on('click',function(){
+    $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
       testdb = [];
       testdb.push(apiInput.businesses[resultIndex]);
       // console.log(testdb)
@@ -53,10 +67,10 @@ $(document).ready(function() {
         .append($('<img/>').attr("src", apiInput[resultIndex].LargeImage[0].URL[0])).append($('<br/>'))
         .append($('<span/>').text(apiInput[resultIndex].ItemAttributes[0].Title[0])).append($('<br/>'))
         .append($('<a/>').attr("href", apiInput[resultIndex].DetailPageURL[0]).text('Buy now on Amazon')).append($('<br/>'))
+        .append($('<button/>').addClass('btn btn-default').text('Pin to shopping list'))
     )
-    $(`.suggestion.${resultIndex}`).on('click',function(){
+    $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
       testdb = [];
-      // console.log(resultIndex);
       testdb.push(apiInput[resultIndex]);
       // console.log(testdb)
     })
@@ -77,8 +91,9 @@ $(document).ready(function() {
         .append($('<img/>').attr("src", apiInput[resultIndex].thumbnail)).append($('<br/>'))
         .append($('<span/>').text(`Author(s): ${authorList}`)).append($('<br/>'))
         .append($('<span/>').text(`Google books user rating: ${apiInput[resultIndex].averageRating}/5`))
+        .append($('<button/>').addClass('btn btn-default').text('Pin to reading list'))
     )
-    $(`.suggestion.${resultIndex}`).on('click',function(){
+    $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
 
       testdb = [];
       testdb.push(apiInput[resultIndex]);
