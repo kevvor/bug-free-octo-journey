@@ -17,17 +17,14 @@ $(document).ready(function() {
     $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
       testdb = [];
 
-      // console.log(resultIndex);
       testdb.push(apiInput.results[resultIndex]);
-      // console.log(testdb)
 
       let poster_URL = `${baseUrl}${apiInput.results[resultIndex].poster_path}`
       $.ajax({
       method: "POST",
-      url: "/",
+      url: "/api/users",
       data: {"title": apiInput.results[resultIndex].title, "img": poster_URL, "rating":apiInput.results[resultIndex].vote_average}
       })
-      // testdb.push(apiInput.results[resultIndex]);
     })
   }
 
@@ -46,7 +43,6 @@ $(document).ready(function() {
     $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
       testdb = [];
       testdb.push(apiInput.businesses[resultIndex]);
-      // console.log(testdb)
     })
   }
 
@@ -64,7 +60,6 @@ $(document).ready(function() {
     $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
       testdb = [];
       testdb.push(apiInput[resultIndex]);
-      // console.log(testdb)
     })
   }
 
@@ -89,7 +84,6 @@ $(document).ready(function() {
 
       testdb = [];
       testdb.push(apiInput[resultIndex]);
-      // console.log(testdb)
     })
   }
 
@@ -175,7 +169,6 @@ $(document).ready(function() {
       url: "/yelpSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-      // console.log(result);
       if (result.total <= 0) console.log('No results found.')
       else if (result.total_results  < 3) {
         let emptyDivs = 3 - result.total_results;
@@ -255,8 +248,6 @@ $(document).ready(function() {
         }
     })
   });
-
-
 });
 
 

@@ -4,8 +4,8 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (knex) => {
+
   router.get("/", (req, res) => {
-    console.log('in / knex')
     knex.raw(
         `SELECT m.name AS movie_name, m.vote_average AS movie_rating, m.img AS movie_image,
         b.name AS book_name, b.author AS book_author, b.img AS book_image,
@@ -30,29 +30,27 @@ module.exports = (knex) => {
       ON pl.id = upl.places_id
       WHERE u.id = ?`, [req.session.user_id])
     .then(function(response) {
-    // console.log(response.rows[0])
     })
-  })
-  console.log('before router')
+  });
 
-  // router.post("/", (req, res) => {
-  //   console.log('in post /')
-  //   knex.insert([{
-  //     name: 'citizen kane',
-  //     img: 'poster',
-  //     vote_average: '10'
-  //   }], 'id')
-  //   .into('movies')
-  //   .asCallback(function (err, result) {
-  //     if (err) {
-  //       console.log('in callback')
-  //       console.log(err)
-  //     }
-  //     else {
-  //       console.log(result)
-  //     }
-  //   });
-  // });
+  router.post("/", (req, res) => {
+    console.log('in post /')
+    knex.insert([{
+      name: req.body.title,
+      img: req.body.img,
+      vote_average: req.body.rating
+    }], 'id')
+    .into('movies')
+    .asCallback(function (err, result) {
+      if (err) {
+        console.log('in callback')
+        console.log(err)
+      }
+      else {
+        console.log(result)
+      }
+    })
+  });
   return router
 }
 
