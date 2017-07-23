@@ -130,7 +130,6 @@ function loadToDoItems () {
   renderProductItem(database);
 };
 
-loadToDoItems();
 
 
 
@@ -138,12 +137,14 @@ function loadToDoItems () {
 
   $.ajax({
     type: "GET",
-    url: '/',
+    url: '/api/users',
     success: function(database) {
       renderToDoItems(database);
     }
   });
 }
+
+loadToDoItems();
 
 });
 

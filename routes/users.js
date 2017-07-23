@@ -29,7 +29,7 @@ module.exports = (knex) => {
     ON pl.id = upl.places_id
     WHERE u.id = ?`, [req.session.user_id])
     .then(function(response) {
-    console.log(response.rows[0])
+    res.json(response.rows[0]);
     })
   })
   return router
