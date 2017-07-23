@@ -147,7 +147,7 @@ $.ajax({
   // renderBookItem(database);
   // renderPlaceItem(database);
   // renderProductItem(database);
-};
+// };
 
 
 

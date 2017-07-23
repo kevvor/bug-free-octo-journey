@@ -167,8 +167,8 @@ $(document).ready(function() {
 
     $('.movies-list').hide();
     $('.books-list').hide();
-    $('.places-list').show();
-    $('.products-list').hide();
+    $('.places-list').hide();
+    $('.products-list').show();
   })
 
   $('#book-tab-selector').on('click',function(){
