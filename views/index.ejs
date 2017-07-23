@@ -20,12 +20,30 @@
 
     <!-- CSS styles -->
     <link rel="stylesheet" type="text/css" href="/styles/searchbar.css" />
+    <link rel="stylesheet" type="text/css" href="/styles/header.css" />
 
   </head>
 
   <body>
+    <div class = "container.fluid header">
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="logo">
+            <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+            PinList
+          </span>
+        </div>
+        <div class="col-sm-5"></div>
+        <div class="col-sm-3">
+          <form action="/logout" method="POST">
+            <button class="btn btn-primary logout" type="Submit">Logout</button>
+          </form>
+        </div>
+      </div>
+    </div>
     <main>
-
+      <div class="jumbotron">
+        <h1 class="titlecard">Try Something New!</h1>
         <div class = "row">
           <div class = "col-sm-1"></div>
 
@@ -73,7 +91,7 @@
         <div class="row">
           <div class="col-sm-1"></div>
           <div class="col-sm-10">
-            <div class = "suggestions-field">
+            <div class = "suggestions-field container-fluid">
               <div class = "row">
 
          <!--        <div class = "col-sm-4 suggestion">
@@ -96,15 +114,16 @@
           </div>
           <div class="col-sm-1"></div>
         </div>
+      </div>
 
 
 
   <div class="container">
 
-      <form action="/logout" method="POST">
+      <!-- <form action="/logout" method="POST">
         <label for="user_id"></label>
         <input class="btn btn-primary" type="Submit" value="logout">
-      </form>
+      </form> -->
 
     <nav>
       <ul class="nav nav-tabs">

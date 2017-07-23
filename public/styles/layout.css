@@ -5,12 +5,18 @@ body {
 main {
   margin: 0 auto;
   width: 1000px;
-  /*background-color: powderblue;*/
   padding: 0px;
-  padding-top: 140px;
+
 }
 
 .nav{
   width: 960px;
+  margin-top: 20px;
+}
+
+.container{
+  background-color: #eee;
+  width: 1000px;
+
 }
 
