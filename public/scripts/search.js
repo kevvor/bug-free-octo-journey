@@ -15,9 +15,14 @@ $(document).ready(function() {
     )
     $(`.suggestion.${resultIndex}`).on('click',function(){
       testdb = [];
-      console.log(resultIndex);
+      // console.log(resultIndex);
       testdb.push(apiInput.results[resultIndex]);
-      console.log(testdb)
+      // console.log(testdb)
+
+      $.ajax({
+      method: "POST",
+      url: "/"
+      })
     })
   }
 
@@ -35,7 +40,7 @@ $(document).ready(function() {
     $(`.suggestion.${resultIndex}`).on('click',function(){
       testdb = [];
       testdb.push(apiInput.businesses[resultIndex]);
-      console.log(testdb)
+      // console.log(testdb)
     })
   }
 
@@ -51,9 +56,9 @@ $(document).ready(function() {
     )
     $(`.suggestion.${resultIndex}`).on('click',function(){
       testdb = [];
-      console.log(resultIndex);
+      // console.log(resultIndex);
       testdb.push(apiInput[resultIndex]);
-      console.log(testdb)
+      // console.log(testdb)
     })
   }
 
@@ -77,7 +82,7 @@ $(document).ready(function() {
 
       testdb = [];
       testdb.push(apiInput[resultIndex]);
-      console.log(testdb)
+      // console.log(testdb)
     })
   }
 
@@ -163,7 +168,7 @@ $(document).ready(function() {
       url: "/yelpSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-      console.log(result);
+      // console.log(result);
       if (result.total <= 0) console.log('No results found.')
       else if (result.total_results  < 3) {
         let emptyDivs = 3 - result.total_results;
