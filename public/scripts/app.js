@@ -97,15 +97,41 @@ $.ajax({
       method: "GET",
       url: "/api/users",
     }).done((response)=>{
-      console.log(response);
-      let movieItem = createMovieItem(response);
-      let bookItem = createBookItem(response);
-      let productItem = createProductItem(response);
-      let placeItem = createPlaceItem(response);
-      $(".movies-list").append(movieItem);
-      $(".books-list").append(bookItem);
-      $(".places-list").append(placeItem);
-      $(".products-list").append(productItem);
+        let userBookList = '';
+        let userMovieList = '';
+        let userProductList = '';
+        let userPlaceList = '';
+        if (response.booklist) userBookList = response.booklist.rows;
+        if (response.movielist) userMovieList = response.movielist.rows;
+        if (response.productlist) userProductList = response.productlist.rows;
+        if (response.placelist) userPlaceList = response.placelist.rows;
+
+        for (i in userBookList){
+          let bookItem = createBookItem(userBookList[i]);
+          $(".books-list").append(bookItem);
+        };
+        for (i in userMovieList){
+          let movieItem = createMovieItem(userMovieList[i]);
+          $(".movies-list").append(movieItem);
+        };
+        for (i in userProductList){
+          let productItem = createProductItem(userProductList[i]);
+          $(".products-list").append(productItem);
+        };
+        for (i in userPlaceList){
+          let placeItem = createPlaceItem(userPlaceList[i]);
+          $(".places-list").append(placeItem);
+        };
+
+        // let movieItem = createMovieItem(response[i]);
+        // let bookItem = createBookItem(response[i]);
+        // let productItem = createProductItem(response[i]);
+        // let placeItem = createPlaceItem(response[i]);
+        // $(".movies-list").append(movieItem);
+        // $(".books-list").append(bookItem);
+        // $(".places-list").append(placeItem);
+        // $(".products-list").append(productItem);
+
 
 });
 
