@@ -10,7 +10,6 @@ $(document).ready(function() {
       console.log(response);
       });
 
-
 function createMovieItem (obj) {
   let newMovieItem = `
     <div class="rows">
