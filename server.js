@@ -202,7 +202,7 @@ app.get("/googleBooksSearch",(req,res)=>{
   books.search(req.query.userinput, function(error, result) {
     if ( ! error ) {
         res.json(result)
-        console.log(result);
+        // console.log(result);
     } else {
         console.log(error);
     }

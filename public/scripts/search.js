@@ -15,15 +15,15 @@ $(document).ready(function() {
         .append($('<button/>').addClass('btn btn-default').text('Pin this movie!'))
     )
     $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
-      testdb = [];
-
-      testdb.push(apiInput.results[resultIndex]);
-
       let poster_URL = `${baseUrl}${apiInput.results[resultIndex].poster_path}`
       $.ajax({
-      method: "POST",
-      url: "/api/users",
-      data: {"category": "movie", "title": apiInput.results[resultIndex].title, "img": poster_URL, "rating":apiInput.results[resultIndex].vote_average}
+        method: "POST",
+        url: "/api/users",
+        data: {"category": "movie",
+               "title": apiInput.results[resultIndex].title,
+               "img": poster_URL,
+               "rating":apiInput.results[resultIndex].vote_average
+        }
       })
     })
   }
@@ -41,8 +41,15 @@ $(document).ready(function() {
         .append($('<button/>').addClass('btn btn-default').text('Pin to place'))
     )
     $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
-      testdb = [];
-      testdb.push(apiInput.businesses[resultIndex]);
+      $.ajax({
+        method: "POST",
+        url: "/api/users",
+        data: {"category": "place",
+               "title": apiInput.businesses[resultIndex].name,
+               "img": apiInput.businesses[resultIndex].image_url,
+               "address": apiInput.businesses[resultIndex].location.address1
+        }
+      })
     })
   }
 
@@ -58,8 +65,14 @@ $(document).ready(function() {
         .append($('<button/>').addClass('btn btn-default').text('Pin to shopping list'))
     )
     $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
-      testdb = [];
-      testdb.push(apiInput[resultIndex]);
+      $.ajax({
+        method: "POST",
+        url: "/api/users",
+        data: {"category": "product",
+               "title": searchTerms,
+               "img": apiInput[resultIndex].LargeImage[0].URL[0]
+        }
+      })
     })
   }
 
@@ -81,9 +94,17 @@ $(document).ready(function() {
         .append($('<button/>').addClass('btn btn-default').text('Pin to reading list'))
     )
     $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
-
-      testdb = [];
-      testdb.push(apiInput[resultIndex]);
+      console.log('books result index')
+      console.log(apiInput[resultIndex].title)
+      $.ajax({
+        method: "POST",
+        url: "/api/users",
+        data: {"category": "book",
+               "title": apiInput[resultIndex].title,
+               "img": apiInput[resultIndex].thumbnail,
+               "author": authorList
+        }
+      })
     })
   }
 
@@ -137,7 +158,12 @@ $(document).ready(function() {
       url: "/amazonSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-      if (result.length <= 0) console.log('No results found.')
+      if (result.length <= 0){
+        console.log('No results found.')
+        $('.suggestions-field').find('.row')
+        .append($('<div/>').addClass(`class="alert alert-danger" suggestion`))
+        $('.suggestions-field').slideDown();
+      }
       else if (result.length  < 3) {
         let emptyDivs = 3 - result.total_results;
         for (let i = 0; i < result.total_results; i++){
@@ -169,7 +195,12 @@ $(document).ready(function() {
       url: "/yelpSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-      if (result.total <= 0) console.log('No results found.')
+      if (result.total <= 0) {
+        console.log('No results found.')
+        $('.suggestions-field').find('.row')
+        .append($('<div/>').addClass('alert alert-danger suggestion').text('No Results Found'))
+        $('.suggestions-field').slideDown();
+      }
       else if (result.total_results  < 3) {
         let emptyDivs = 3 - result.total_results;
         for (let i = 0; i < result.total_results; i++){

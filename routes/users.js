@@ -6,36 +6,67 @@ const router  = express.Router();
 module.exports = (knex) => {
 
   router.get("/", (req, res) => {
+
     knex.raw(
-        `SELECT m.name AS movie_name, m.vote_average AS movie_rating, m.img AS movie_image,
-        b.name AS book_name, b.author AS book_author, b.img AS book_image,
-        pr.name AS product_name, pr.img AS product_image,
-        pl.name AS place_name, pl.address AS place_address, pl.img AS place_image
+      `SELECT
+        m.name AS movie_name,
+        m.vote_average AS movie_rating,
+        m.img AS movie_image
       FROM users u
-      JOIN users_movies um
+      LEFT OUTER JOIN users_movies um
       ON u.id = um.users_id
-      JOIN movies m
+      LEFT OUTER JOIN movies m
       ON m.id = um.movies_id
-      JOIN users_books ub
+      WHERE u.id = ?`, [req.session.user_id])
+    .then(function(movieResponse) {
+      console.log(movieResponse.rows);
+    })
+    knex.raw(
+      `SELECT
+        b.name AS book_name,
+        b.author AS book_author,
+        b.img AS book_image
+      FROM users u
+      LEFT OUTER JOIN users_books ub
       ON ub.users_id = u.id
-      JOIN books b
+      LEFT OUTER JOIN books b
       ON b.id = ub.books_id
-      JOIN users_products upr
+      WHERE u.id = ?`, [req.session.user_id])
+    .then(function(bookResponse){
+      console.log(bookResponse.rows)
+    })
+    knex.raw(
+      `SELECT
+        pr.name AS product_name,
+        pr.img AS product_image
+      FROM users u
+      LEFT OUTER JOIN users_products upr
       ON upr.users_id = u.id
-      JOIN products pr
+      LEFT OUTER JOIN products pr
       ON pr.id = upr.products_id
-      JOIN users_places upl
+      WHERE u.id = ?`, [req.session.user_id])
+    .then(function(productResponse){
+      console.log(productResponse.rows)
+    })
+    knex.raw(
+      `SELECT
+        pl.name AS place_name,
+        pl.address AS place_address,
+        pl.img AS place_image
+      FROM users u
+      LEFT OUTER JOIN users_places upl
       ON upl.users_id = u.id
-      JOIN places pl
+      LEFT OUTER JOIN places pl
       ON pl.id = upl.places_id
       WHERE u.id = ?`, [req.session.user_id])
-    .then(function(response) {
-      console.log(response);
+    .then(function(placeResponse){
+      console.log(placeResponse.rows)
     })
   });
 
   router.post("/", (req, res) => {
     if (req.body.category === 'movie') {
+      console.log('insert movie')
     knex.insert([{
       name: req.body.title,
       img: req.body.img,
@@ -59,15 +90,15 @@ module.exports = (knex) => {
     })
     }
     if (req.body.category === 'book') {
+    console.log('insert book')
     knex.insert([{
-      name: //req.body.title,
-      author: //req.body.img,
-      img: //req.body.rating
+      name: req.body.title,
+      author: req.body.author,
+      img: req.body.img
     }], 'id')
     .into('books')
     .returning('id')
     .asCallback(function (err, result) {
-      console.log('book')
       console.log(result[0]);
       if (err) return console.error(err);
       knex.insert([{
@@ -82,10 +113,11 @@ module.exports = (knex) => {
     })
     }
     if (req.body.category === 'place') {
+    console.log('insert place')
     knex.insert([{
-      name: //req.body.title,
-      address: //req.body.img,
-      img: //req.body.rating
+      name: req.body.title,
+      address: req.body.address,
+      img: req.body.img
     }], 'id')
     .into('places')
     .returning('id')
@@ -105,9 +137,10 @@ module.exports = (knex) => {
     })
     }
     if (req.body.category === 'product') {
+    console.log('insert product')
     knex.insert([{
-      name: //req.body.title,
-      img: //req.body.rating
+      name: req.body.title,
+      img: req.body.img
     }], 'id')
     .into('products')
     .returning('id')
