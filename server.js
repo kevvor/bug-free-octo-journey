@@ -161,9 +161,9 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
   console.log('in post /')
   knex.insert([{
-    name: 'citizen kane',
-    img: 'poster',
-    vote_average: '10'
+    name: req.body.title,
+    img: req.body.img,
+    vote_average: req.body.rating
   }], 'id')
   .into('movies')
   .asCallback(function (err, result) {

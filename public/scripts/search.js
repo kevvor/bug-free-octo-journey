@@ -21,21 +21,13 @@ $(document).ready(function() {
       testdb.push(apiInput.results[resultIndex]);
       // console.log(testdb)
 
+      let poster_URL = `${baseUrl}${apiInput.results[resultIndex].poster_path}`
       $.ajax({
       method: "POST",
-      url: "/"
+      url: "/",
+      data: {"title": apiInput.results[resultIndex].title, "img": poster_URL, "rating":apiInput.results[resultIndex].vote_average}
       })
-
-      testdb.push(apiInput.results[resultIndex]);
-      console.log(testdb)
-
-      // $.ajax({
-      // method: "POST",
-      // url: "/",
-      // data: {"userinput":searchTerms}
-      // })
-
-
+      // testdb.push(apiInput.results[resultIndex]);
     })
   }
 
