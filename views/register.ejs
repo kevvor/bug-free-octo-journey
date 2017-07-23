@@ -7,37 +7,52 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/register.css" type="text/css" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
 
     <script src="/js/jquery.js"></script>
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script type="text/javascript" src="/scripts/search.js"></script>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
 
     <script src="/js/bootstrap.min.js"></script>
 
+    <img src="http://www.twinbeardtravel.com.au/wp-content/uploads/2016/10/roadtrip.jpg" id="bg" alt="">
   </head>
 
-  <body style="font-size:20px; padding:50px;">
+  <body>
+    <div class = "container.fluid header">
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="logo">
+            <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+            PinList
+          </span>
+        </div>
+        <div class="col-sm-5"></div>
+        <div class="col-sm-3"></div>
+      </div>
+    </div>
 
-    <h3>register</h3>
-
-    <form action = "/register" method = "POST" class="form-inline">
-
-      <label class="sr-only" for="inlineFormInput">email</label>
-
-        <input name = "email" type="email" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="email">
-
-      <label class="sr-only" for="inlineFormInput">password</label>
-
-        <input name = "password" type="password" class="form-control" id="inlineFormInput" placeholder="password">
-
-      <button type="submit" class="btn btn-primary">register</button>
-
-      <h4>already have an account?  <a class="btn btn-primary" href="/login" role="button">login</a></h4>
-
-    </form>
-
+    <main>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <div class="register">
+              <h3>Register</h3>
+                <form action = "/register" method = "POST" class="form-inline">
+                  <label class="sr-only" for="inlineFormInput">email</label>
+                    <input name = "email" type="email" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Email">
+                  <label class="sr-only" for="inlineFormInput">password</label>
+                    <input name = "password" type="password" class="form-control" id="inlineFormInput" placeholder="Password">
+                  <button type="submit" class="btn btn-primary">Register</button>
+                  <h4>Already have an Account?  <a class="btn btn-primary" href="/login" role="button">Login</a></h4>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   </body>
 
 </html>
