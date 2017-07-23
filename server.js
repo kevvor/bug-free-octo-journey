@@ -48,6 +48,7 @@ function generateRandomString(length) { // generates a random string
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
+const postsRoutes = require("./routes/posts")
 
 const users = {};
 
@@ -155,6 +156,25 @@ app.get("/", (req, res) => {
     res.redirect('/error');
   }
   res.render("index");
+});
+
+app.post("/", (req, res) => {
+  console.log('in post /')
+  knex.insert([{
+    name: req.body.title,
+    img: req.body.img,
+    vote_average: req.body.rating
+  }], 'id')
+  .into('movies')
+  .asCallback(function (err, result) {
+    if (err) {
+      console.log('in callback')
+      console.log(err)
+    }
+    else {
+      console.log(result)
+    }
+  })
 });
 
 // app.get("/user/:cookieId", (req, res) => {

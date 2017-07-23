@@ -12,12 +12,28 @@ $(document).ready(function() {
         .append($('<img/>').attr("src", `${baseUrl}${apiInput.results[resultIndex].poster_path}`)).append($('<br/>'))
         .append($('<span/>').text(`Released: ${apiInput.results[resultIndex].release_date}`)).append($('<br/>'))
         .append($('<span/>').text(`TMDB user rating: ${apiInput.results[resultIndex].vote_average}/10`))
+        .append($('<button/>').addClass('btn btn-default').text('Pin this movie!'))
     )
-    $(`.suggestion.${resultIndex}`).on('click',function(){
-      testdb = [];
-      console.log(resultIndex);
-      testdb.push(apiInput.results[resultIndex]);
-      console.log(testdb)
+    $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
+      // testdb = [];
+
+      // console.log(resultIndex);
+
+      // testdb.push(apiInput.results[resultIndex]);
+
+      // console.log(testdb)
+
+      let poster_URL = `${baseUrl}${apiInput.results[resultIndex].poster_path}`
+      $.ajax({
+        method: "POST",
+        url: "/",
+        data: {"category": "movie",
+               "title": apiInput.results[resultIndex].title,
+               "img": poster_URL,
+               "rating":apiInput.results[resultIndex].vote_average
+        }
+      })
+      // testdb.push(apiInput.results[resultIndex]);
     })
   }
 
@@ -31,11 +47,21 @@ $(document).ready(function() {
         .append($('<img/>').attr("src", apiInput.businesses[resultIndex].image_url)).append($('<br/>'))
         .append($('<span/>').text(`Address: ${apiInput.businesses[resultIndex].location.address1}`)).append($('<br/>'))
         .append($('<span/>').text(`Yelp user rating: ${apiInput.businesses[resultIndex].rating}/5`))
+        .append($('<button/>').addClass('btn btn-default').text('Pin to place'))
     )
-    $(`.suggestion.${resultIndex}`).on('click',function(){
-      testdb = [];
-      testdb.push(apiInput.businesses[resultIndex]);
-      console.log(testdb)
+    $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
+      // testdb = [];
+      // testdb.push(apiInput.businesses[resultIndex]);
+      // console.log(testdb)
+      $.ajax({
+        method: "POST",
+        url: "/",
+        data: {"category": "place",
+               "title": apiInput.businesses[resultIndex].name,
+               "img": apiInput.businesses[resultIndex].image_url,
+               "address": apiInput.businesses[resultIndex].location.address1
+        }
+      })
     })
   }
 
@@ -48,12 +74,20 @@ $(document).ready(function() {
         .append($('<img/>').attr("src", apiInput[resultIndex].LargeImage[0].URL[0])).append($('<br/>'))
         .append($('<span/>').text(apiInput[resultIndex].ItemAttributes[0].Title[0])).append($('<br/>'))
         .append($('<a/>').attr("href", apiInput[resultIndex].DetailPageURL[0]).text('Buy now on Amazon')).append($('<br/>'))
+        .append($('<button/>').addClass('btn btn-default').text('Pin to shopping list'))
     )
-    $(`.suggestion.${resultIndex}`).on('click',function(){
-      testdb = [];
-      console.log(resultIndex);
-      testdb.push(apiInput[resultIndex]);
-      console.log(testdb)
+    $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
+      // testdb = [];
+      // testdb.push(apiInput[resultIndex]);
+      $.ajax({
+        method: "POST",
+        url: "/",
+        data: {"category": "product",
+               "title": searchTerms,
+               "img": apiInput[resultIndex].LargeImage[0].URL[0]
+        }
+      })
+      // console.log(testdb)
     })
   }
 
@@ -72,12 +106,23 @@ $(document).ready(function() {
         .append($('<img/>').attr("src", apiInput[resultIndex].thumbnail)).append($('<br/>'))
         .append($('<span/>').text(`Author(s): ${authorList}`)).append($('<br/>'))
         .append($('<span/>').text(`Google books user rating: ${apiInput[resultIndex].averageRating}/5`))
+        .append($('<button/>').addClass('btn btn-default').text('Pin to reading list'))
     )
-    $(`.suggestion.${resultIndex}`).on('click',function(){
+    $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
 
-      testdb = [];
-      testdb.push(apiInput[resultIndex]);
-      console.log(testdb)
+      // testdb = [];
+      // testdb.push(apiInput[resultIndex]);
+      // console.log(testdb)
+
+      $.ajax({
+        method: "POST",
+        url: "/",
+        data: {"category": "book",
+               "title": apiInput.results[resultIndex].title,
+               "img": apiInput[resultIndex].thumbnail,
+               "author": authorList
+        }
+      })
     })
   }
 
@@ -129,13 +174,19 @@ $(document).ready(function() {
     $.ajax({
       method: "GET",
       url: "/amazonSearch",
+      timeout: 5000,
       data: {"userinput":searchTerms}
     }).done((result)=>{
-      if (result.length <= 0) console.log('No results found.')
+      if (result.length <= 0){
+        console.log('No results found.')
+        $('.suggestions-field').find('.row')
+        .append($('<div/>').addClass(`class="alert alert-danger" suggestion`))
+        $('.suggestions-field').slideDown();
+      }
       else if (result.length  < 3) {
         let emptyDivs = 3 - result.total_results;
         for (let i = 0; i < result.total_results; i++){
-          renderAmazonProduct(result,i,searchTerms);
+          renderAmazonProduct(result, i, searchTerms);
         }
         $('.suggestions-field').find('.row')
         .append($('<div/>').addClass(`col-sm-${emptyDivs*4} suggestion`))
@@ -146,6 +197,7 @@ $(document).ready(function() {
           renderAmazonProduct(result, i, searchTerms);
         }
         $('.suggestions-field').slideDown();
+        console.log(result)
       }
 
 
@@ -163,8 +215,13 @@ $(document).ready(function() {
       url: "/yelpSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-      console.log(result);
-      if (result.total <= 0) console.log('No results found.')
+      // console.log(result);
+      if (result.total <= 0) {
+        console.log('No results found.')
+        $('.suggestions-field').find('.row')
+        .append($('<div/>').addClass('alert alert-danger suggestion').text('No Results Found'))
+        $('.suggestions-field').slideDown();
+      }
       else if (result.total_results  < 3) {
         let emptyDivs = 3 - result.total_results;
         for (let i = 0; i < result.total_results; i++){
@@ -196,7 +253,12 @@ $(document).ready(function() {
       url: "/tmdbSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-        if (result.total_results <= 0) console.log('No results found :(')
+        if (result.total_results <= 0){
+          console.log('No results found.')
+          $('.suggestions-field').find('.row')
+          .append($('<div/>').addClass('alert alert-danger suggestion').text('No Results Found'))
+          $('.suggestions-field').slideDown();
+        }
         else if (result.total_results  < 3) {
           let emptyDivs = 3 - result.total_results;
           for (let i = 0; i < result.total_results; i++){
@@ -225,7 +287,12 @@ $(document).ready(function() {
       url: "/googleBooksSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-        if (result.length <= 0) console.log('No results found :(')
+          if (result.length <= 0){
+          console.log('No results found.')
+          $('.suggestions-field').find('.row')
+          .append($('<div/>').addClass('alert alert-danger suggestion').text('No Results Found'))
+          $('.suggestions-field').slideDown();
+        }
         else if (result.length  < 3) {
           let emptyDivs = 3 - result.total_results;
           for (let i = 0; i < result.total_results; i++){

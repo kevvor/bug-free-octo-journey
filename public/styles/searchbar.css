@@ -1,3 +1,10 @@
+.titlecard{
+  margin: 0 auto;
+  text-align: left;
+  margin-bottom: 40px;
+  font-weight: bold;
+  padding-left: 125px;
+}
 
 form#amazonSearchForm{
   display: none;
@@ -57,10 +64,7 @@ button{
   width: 150px;
 }
 
-
-
 .suggestion{
-
   display: inline-block;
   margin: 0 auto;
   width: 30%
@@ -71,8 +75,15 @@ button{
 .suggestion-field {
   padding: 0;
 }
+.jumbotron{
+  background-color: #E1EFF6;
+}
 
-
+div.alert.alert-danger{
+  margin-top: 15px;
+  margin-left: -3.5%;
+  width: 107.25%;
+}
 
 
 
