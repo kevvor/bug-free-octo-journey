@@ -38,7 +38,7 @@ function createBookItem (obj) {
             </a>
           </div>
           <div class="media-body">
-            <h4 class="media-heading">${database.book_name}</h4>
+            <h4 class="media-heading">${dataBase.book_name}</h4>
             <ul>
               <li class="author">${database.book_author}</li>
             </ul>
@@ -132,6 +132,8 @@ function loadToDoItems () {
 
 loadToDoItems();
 
+
+
 function loadToDoItems () {
 
   $.ajax({
@@ -148,3 +150,5 @@ function loadToDoItems () {
 // $(selector).hide(speed, callback);
 
 // $("").click(fast, function() {
+//   $("").
+// }
