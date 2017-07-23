@@ -174,6 +174,7 @@ $(document).ready(function() {
     $.ajax({
       method: "GET",
       url: "/amazonSearch",
+      timeout: 5000,
       data: {"userinput":searchTerms}
     }).done((result)=>{
       if (result.length <= 0){
@@ -185,7 +186,7 @@ $(document).ready(function() {
       else if (result.length  < 3) {
         let emptyDivs = 3 - result.total_results;
         for (let i = 0; i < result.total_results; i++){
-          renderAmazonProduct(result,i,searchTerms);
+          renderAmazonProduct(result, i, searchTerms);
         }
         $('.suggestions-field').find('.row')
         .append($('<div/>').addClass(`col-sm-${emptyDivs*4} suggestion`))
@@ -196,6 +197,7 @@ $(document).ready(function() {
           renderAmazonProduct(result, i, searchTerms);
         }
         $('.suggestions-field').slideDown();
+        console.log(result)
       }
 
 
@@ -251,7 +253,12 @@ $(document).ready(function() {
       url: "/tmdbSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-        if (result.total_results <= 0) console.log('No results found :(')
+        if (result.total_results <= 0){
+          console.log('No results found.')
+          $('.suggestions-field').find('.row')
+          .append($('<div/>').addClass('alert alert-danger suggestion').text('No Results Found'))
+          $('.suggestions-field').slideDown();
+        }
         else if (result.total_results  < 3) {
           let emptyDivs = 3 - result.total_results;
           for (let i = 0; i < result.total_results; i++){
@@ -280,7 +287,12 @@ $(document).ready(function() {
       url: "/googleBooksSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-        if (result.length <= 0) console.log('No results found :(')
+          if (result.length <= 0){
+          console.log('No results found.')
+          $('.suggestions-field').find('.row')
+          .append($('<div/>').addClass('alert alert-danger suggestion').text('No Results Found'))
+          $('.suggestions-field').slideDown();
+        }
         else if (result.length  < 3) {
           let emptyDivs = 3 - result.total_results;
           for (let i = 0; i < result.total_results; i++){

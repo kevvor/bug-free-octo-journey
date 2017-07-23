@@ -79,6 +79,11 @@ button{
   background-color: #E1EFF6;
 }
 
+div.alert.alert-danger{
+  margin-top: 15px;
+  margin-left: -3.5%;
+  width: 107.25%;
+}
 
 
 
