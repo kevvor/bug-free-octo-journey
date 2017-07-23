@@ -5,12 +5,12 @@ img.media-object{
   border-radius: 10px;
 }
 
-.movie{
+.col-md-7{
+
   margin-top: 15px;
 }
 
 .movies-list{
-
 }
 .books-list{
   display: none;
