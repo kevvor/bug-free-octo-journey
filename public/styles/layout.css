@@ -1,15 +1,9 @@
 body {
-  margin: 0;
-
-
 }
 
 main {
-  padding:  80px 15% 0 15%;
   margin: 0 auto;
-  width: 100%;
   padding-top: 80px;
-
 }
 
 .nav{
@@ -18,14 +12,12 @@ main {
 }
 
 .container{
-
   width: 100%;
 }
 
 .alert{
   text-align: center;
   margin: 0 auto;
-
 }
 
 

@@ -30,9 +30,8 @@ function createMovieItem (obj) {
 function createBookItem (obj) {
   let newBookItem = `
     <div class="rows">
-      <div class="col-md-2>"</div>
-        <div class="col-md-7">
         <div class="media">
+
           <div class="media-left" "media-middle">
             <a href="#"">
               <img class="media-object" src="${obj.book_image}" alt="image">
@@ -53,8 +52,6 @@ function createBookItem (obj) {
 function createPlaceItem (obj) {
   let newPlaceItem = `
     <div class="rows">
-      <div class="col-md-2>"</div>
-        <div class="col-md-7">
         <div class="media">
           <div class="media-left" "media-middle">
             <a href="#"">
@@ -76,8 +73,7 @@ function createPlaceItem (obj) {
 function createProductItem (obj) {
   let newProductItem = `
     <div class="rows">
-      <div class="col-md-2>"</div>
-        <div class="col-md-7">
+
         <div class="media">
           <div class="media-left" "media-middle">
             <a href="#"">
@@ -106,6 +102,7 @@ $.ajax({
         if (response.productlist) userProductList = response.productlist.rows;
         if (response.placelist) userPlaceList = response.placelist.rows;
 
+        console.log(response.booklist.rows)
         for (i in userBookList){
           let bookItem = createBookItem(userBookList[i]);
           $(".books-list").append(bookItem);

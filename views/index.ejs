@@ -46,79 +46,85 @@
     </div>
 
     <main>
-      <div class="jumbotron">
-        <h1 class="titlecard">Try Something New!</h1>
-        <div class = "row">
-          <div class = "col-sm-1"></div>
+      <div class="row">
+        <div class = "col-md-2" ></div>
+        <div class = "col-md-8">
+          <div class="jumbotron">
+            <h1 class="titlecard">Try Something New!</h1>
+            <div class = "row">
+              <div class = "col-sm-1"></div>
 
-          <div class = "col-sm-10" id = "searchbar-div" >
-            <form id = "amazonSearchForm" method = "GET" action = "/">
-              <div class = "input-group">
-                <textarea class = "form-control" required="" id = "amazonSearchText" name = "amazonSearchText" placeholder="Hey kids wanna buy some stuff?"></textarea>
-                <span class = "input-group-btn">
-                  <button id = "amazonSubmit" type="submit" name="amazonSubmit" class = "btn btn-default">Search Stuff</button>
-                </span>
+              <div class = "col-sm-10" id = "searchbar-div" >
+                <form id = "amazonSearchForm" method = "GET" action = "/">
+                  <div class = "input-group">
+                    <textarea class = "form-control" required="" id = "amazonSearchText" name = "amazonSearchText" placeholder="Hey kids wanna buy some stuff?"></textarea>
+                    <span class = "input-group-btn">
+                      <button id = "amazonSubmit" type="submit" name="amazonSubmit" class = "btn btn-default">Search Stuff</button>
+                    </span>
+                  </div>
+                </form>
+
+                <form id = "yelpSearchForm" method = "GET" action = "/">
+                  <div class = "input-group">
+                    <textarea class = "form-control" required="" id = "yelpSearchText" name = "yelpSearchText" placeholder="Feeling Adventurous?"></textarea>
+                    <span class = "input-group-btn">
+                      <button id = "yelpSubmit" type="submit" name="yelpSubmit" class="btn btn-default" >Search Places</button>
+                    </span>
+                  </div>
+                </form>
+
+                <form id = "tmdbSearchForm" method = "GET" action = "/">
+                  <div class = "input-group">
+                    <textarea class = "form-control" required="" id = "tmdbSearchText" name = "tmdbSearchText" placeholder="What movies do you wanna see?"></textarea>
+                    <span class = "input-group-btn">
+                      <button class="btn btn-default" id = "tmdbSubmit" type="submit" name="tmdbSubmit">Search Movies</button>
+                    </span>
+                  </div>
+                </form>
+
+                <form id = "googleBooksSearchForm" method = "GET" action = "/">
+                  <div class = "input-group">
+                    <textarea class = "form-control" required="" id = "googleBooksSearchText" name = "googleBooksSearchText" placeholder="What books do you wanna read, nerd?"></textarea>
+                    <span class = "input-group-btn">
+                      <button class="btn btn-default" id = "googleBooksSubmit" type="submit" name="googleBooksSubmit">Search Books</button>
+                    </span>
+                  </div>
+                </form>
               </div>
-            </form>
 
-            <form id = "yelpSearchForm" method = "GET" action = "/">
-              <div class = "input-group">
-                <textarea class = "form-control" required="" id = "yelpSearchText" name = "yelpSearchText" placeholder="Feeling Adventurous?"></textarea>
-                <span class = "input-group-btn">
-                  <button id = "yelpSubmit" type="submit" name="yelpSubmit" class="btn btn-default" >Search Places</button>
-                </span>
-              </div>
-            </form>
+            <div class = "col-sm-1"></div>
+            </div>
 
-            <form id = "tmdbSearchForm" method = "GET" action = "/">
-              <div class = "input-group">
-                <textarea class = "form-control" required="" id = "tmdbSearchText" name = "tmdbSearchText" placeholder="What movies do you wanna see?"></textarea>
-                <span class = "input-group-btn">
-                  <button class="btn btn-default" id = "tmdbSubmit" type="submit" name="tmdbSubmit">Search Movies</button>
-                </span>
-              </div>
-            </form>
-
-            <form id = "googleBooksSearchForm" method = "GET" action = "/">
-              <div class = "input-group">
-                <textarea class = "form-control" required="" id = "googleBooksSearchText" name = "googleBooksSearchText" placeholder="What books do you wanna read, nerd?"></textarea>
-                <span class = "input-group-btn">
-                  <button class="btn btn-default" id = "googleBooksSubmit" type="submit" name="googleBooksSubmit">Search Books</button>
-                </span>
-              </div>
-            </form>
-          </div>
-
-        <div class = "col-sm-1"></div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-1"></div>
-          <div class="col-sm-10">
-            <div class = "suggestions-field container-fluid">
-              <div class = "row">
+            <div class="row">
+              <div class="col-sm-1"></div>
+              <div class="col-sm-10">
+                <div class = "suggestions-field container-fluid">
+                  <div class = "row">
 
 
-         <!--        <div class = "col-sm-4 suggestion">
-                  <h3>Bananna</h3>
-                  <img src="https://images-na.ssl-images-amazon.com/images/I/4130CZVNWJL.jpg">
+             <!--        <div class = "col-sm-4 suggestion">
+                      <h3>Bananna</h3>
+                      <img src="https://images-na.ssl-images-amazon.com/images/I/4130CZVNWJL.jpg">
+                    </div>
+
+                    <div class = "col-sm-4 suggestion">
+                      <h3>Bananna</h3>
+                      <img src="https://images-na.ssl-images-amazon.com/images/I/4130CZVNWJL.jpg">
+                    </div>
+
+                    <div class = "col-sm-4 suggestion">
+                      <h3>Bananna</h3>
+                      <img src="https://images-na.ssl-images-amazon.com/images/I/4130CZVNWJL.jpg">
+                    </div> -->
+
+                  </div>
                 </div>
-
-                <div class = "col-sm-4 suggestion">
-                  <h3>Bananna</h3>
-                  <img src="https://images-na.ssl-images-amazon.com/images/I/4130CZVNWJL.jpg">
-                </div>
-
-                <div class = "col-sm-4 suggestion">
-                  <h3>Bananna</h3>
-                  <img src="https://images-na.ssl-images-amazon.com/images/I/4130CZVNWJL.jpg">
-                </div> -->
-
               </div>
+              <div class="col-sm-1"></div>
             </div>
           </div>
-          <div class="col-sm-1"></div>
         </div>
+        <div class = "col-md-2"></div>
       </div>
 
 
