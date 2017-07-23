@@ -7,38 +7,49 @@
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/login.css" type="text/css" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
 
     <script src="/js/jquery.js"></script>
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
     <script type="text/javascript" src="/scripts/search.js"></script>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-
     <script src="/js/bootstrap.min.js"></script>
 
+    <img src="https://www.mtlblog.com/uploads/274442_53017ad350c77046b5393b2346011347c27d6735.jpg" id="bg" alt="">
   </head>
 
   <body>
-
-
-    <form action = "/login" method = "POST" class="form-inline">
-
-      <label class="sr-only" for="inlineFormInput">email</label>
-
-        <input name = "email" type="email" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="email">
-
-      <label class="sr-only" for="inlineFormInput">password</label>
-
-        <input name = "password" type="password" class="form-control" id="inlineFormInput" placeholder="password">
-
-      <button type="submit" class="btn btn-primary">login</button>
-
-      <h4>need to register?  <a class="btn btn-primary" href="/register" role="button">register</a></h4>
-
-    </form>
+    <div class = "container.fluid header">
+      <div class="row">
+        <div class="col-sm-4">
+          <span class="logo">
+            <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+            PinList
+          </span>
+        </div>
+        <div class="col-sm-5"></div>
+        <div class="col-sm-3"></div>
+      </div>
+    </div>
 
     <main>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class=login-password>
+            <form action = "/login" method = "POST" class="form-inline">
+              <label class="sr-only" for="inlineFormInput">Email</label>
+                <input name = "email" type="email" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Email">
+              <label class="sr-only" for="inlineFormInput">Password</label>
+                <input name = "password" type="password" class="form-control" id="inlineFormInput" placeholder="Password">
+              <button type="submit" class="btn btn-primary">Login</button>
+              <h4>Need to Register? <a class="btn btn-primary" href="/register" role="button">Register</a></h4>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     </main>
-
   </body>
 </html>
