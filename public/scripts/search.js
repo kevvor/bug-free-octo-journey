@@ -23,7 +23,7 @@ $(document).ready(function() {
       $.ajax({
       method: "POST",
       url: "/api/users",
-      data: {"title": apiInput.results[resultIndex].title, "img": poster_URL, "rating":apiInput.results[resultIndex].vote_average}
+      data: {"category": "movie", "title": apiInput.results[resultIndex].title, "img": poster_URL, "rating":apiInput.results[resultIndex].vote_average}
       })
     })
   }

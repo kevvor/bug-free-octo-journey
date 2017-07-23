@@ -30,26 +30,102 @@ module.exports = (knex) => {
       ON pl.id = upl.places_id
       WHERE u.id = ?`, [req.session.user_id])
     .then(function(response) {
+      console.log(response);
     })
   });
 
   router.post("/", (req, res) => {
-    console.log('in post /')
+    if (req.body.category === 'movie') {
     knex.insert([{
       name: req.body.title,
       img: req.body.img,
       vote_average: req.body.rating
     }], 'id')
     .into('movies')
+    .returning('id')
     .asCallback(function (err, result) {
-      if (err) {
-        console.log('in callback')
-        console.log(err)
-      }
-      else {
+      console.log('first post result')
+      console.log(result[0]);
+      if (err) return console.error(err);
+      knex.insert([{
+        users_id: req.session.user_id,
+        movies_id: result[0]
+      }])
+      .into('users_movies')
+      .asCallback(function(err, result) {
+        if (err) return console.error(err);;
         console.log(result)
-      }
+      });
     })
+    }
+    if (req.body.category === 'book') {
+    knex.insert([{
+      name: //req.body.title,
+      author: //req.body.img,
+      img: //req.body.rating
+    }], 'id')
+    .into('books')
+    .returning('id')
+    .asCallback(function (err, result) {
+      console.log('book')
+      console.log(result[0]);
+      if (err) return console.error(err);
+      knex.insert([{
+        users_id: req.session.user_id,
+        books_id: result[0]
+      }])
+      .into('users_books')
+      .asCallback(function(err, result) {
+        if (err) return console.error(err);
+        console.log(result)
+      });
+    })
+    }
+    if (req.body.category === 'place') {
+    knex.insert([{
+      name: //req.body.title,
+      address: //req.body.img,
+      img: //req.body.rating
+    }], 'id')
+    .into('places')
+    .returning('id')
+    .asCallback(function (err, result) {
+      console.log('place')
+      console.log(result[0]);
+      if (err) return console.error(err);
+      knex.insert([{
+        users_id: req.session.user_id,
+        places_id: result[0]
+      }])
+      .into('users_places')
+      .asCallback(function(err, result) {
+        if (err) return console.error(err);
+        console.log(result)
+      });
+    })
+    }
+    if (req.body.category === 'product') {
+    knex.insert([{
+      name: //req.body.title,
+      img: //req.body.rating
+    }], 'id')
+    .into('products')
+    .returning('id')
+    .asCallback(function (err, result) {
+      console.log('product')
+      console.log(result[0]);
+      if (err) return console.error(err);
+      knex.insert([{
+        users_id: req.session.user_id,
+        products_id: result[0]
+      }])
+      .into('users_products')
+      .asCallback(function(err, result) {
+        if (err) return console.error(err);
+        console.log(result)
+      });
+    })
+    }
   });
   return router
 }

@@ -48,7 +48,6 @@ function generateRandomString(length) { // generates a random string
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
-const postsRoutes = require("./routes/posts")
 
 const users = {};
 
