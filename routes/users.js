@@ -6,10 +6,10 @@ const router  = express.Router();
 module.exports = (knex) => {
 
   router.get("/", (req, res) => {
-    let responseObj = {};
 
     knex.raw(
       `SELECT
+        m.id AS movie_pk,
         m.name AS movie_name,
         m.vote_average AS movie_rating,
         m.img AS movie_image
@@ -20,11 +20,15 @@ module.exports = (knex) => {
       ON m.id = um.movies_id
       WHERE u.id = ?`, [req.session.user_id])
     .then(function(movieResponse) {
+
       responseObj["movielist"] = movieResponse;
       console.log(movieResponse);
+
+
     })
     knex.raw(
       `SELECT
+        b.id AS book_pk,
         b.name AS book_name,
         b.author AS book_author,
         b.img AS book_image
@@ -35,10 +39,11 @@ module.exports = (knex) => {
       ON b.id = ub.books_id
       WHERE u.id = ?`, [req.session.user_id])
     .then(function(bookResponse){
-      responseObj["booklist"] = bookResponse;
+      console.log(bookResponse.rows)
     })
     knex.raw(
       `SELECT
+        pr.id AS product_pk,
         pr.name AS product_name,
         pr.img AS product_image
       FROM users u
@@ -48,10 +53,11 @@ module.exports = (knex) => {
       ON pr.id = upr.products_id
       WHERE u.id = ?`, [req.session.user_id])
     .then(function(productResponse){
-      responseObj["productlist"] = productResponse;
+      console.log(productResponse.rows)
     })
     knex.raw(
       `SELECT
+        pl.id AS place_pk,
         pl.name AS place_name,
         pl.address AS place_address,
         pl.img AS place_image
@@ -62,10 +68,8 @@ module.exports = (knex) => {
       ON pl.id = upl.places_id
       WHERE u.id = ?`, [req.session.user_id])
     .then(function(placeResponse){
-      responseObj["placelist"] = placeResponse
-      res.json(responseObj);
+      console.log(placeResponse.rows)
     })
-
   });
 
   router.post("/", (req, res) => {
@@ -126,7 +130,6 @@ module.exports = (knex) => {
     .into('places')
     .returning('id')
     .asCallback(function (err, result) {
-      console.log('place')
       console.log(result[0]);
       if (err) return console.error(err);
       knex.insert([{
@@ -149,7 +152,6 @@ module.exports = (knex) => {
     .into('products')
     .returning('id')
     .asCallback(function (err, result) {
-      console.log('product')
       console.log(result[0]);
       if (err) return console.error(err);
       knex.insert([{
@@ -164,17 +166,12 @@ module.exports = (knex) => {
     })
     }
   });
+
+  // router.post("/delete" (req, res) => {
+  //after getting some data from the ajax call look up
+  //in the database the correct item in Users_categories table
+  // and delete that row
+  // })
+
   return router
 }
-
-
-
-
-
-
-
-
-
-
-
-

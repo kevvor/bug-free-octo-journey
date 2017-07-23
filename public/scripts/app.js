@@ -5,6 +5,21 @@ $(document).ready(function() {
 // let database = response.rows[0];
 // console.log(response)
 
+$('.btn-danger').on('click', function(){
+  $.ajax({
+    method: "DELETE",
+    url: "/api/users/delete",
+    data: {
+      user_id: $(),
+      category: $(),
+      item_id: $()
+    }
+  })
+})
+
+
+
+
 function createMovieItem (obj) {
   let newMovieItem = `
     <div class="rows">
@@ -22,6 +37,22 @@ function createMovieItem (obj) {
         </ul>
       </div>
 
+      <div class="col-md-2>"</div>
+        <div class="col-md-8">
+          <div class="media">
+            <div class="media-left" "media-middle">
+              <a href="#"">
+                <img class="media-object" src="${obj.movie_image}" alt="image">
+              </a>
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">${obj.movie_name}</h4>
+              <ul>
+                <li class="rating">${obj.movie_rating}</li>
+              </ul>
+            </div>
+          </div>
+          <button type="delete" value="delete" class="btn btn-danger">delete</button>
       </div>
     </div>`
   return (newMovieItem);
