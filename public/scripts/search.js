@@ -143,7 +143,12 @@ $(document).ready(function() {
       url: "/amazonSearch",
       data: {"userinput":searchTerms}
     }).done((result)=>{
-      if (result.length <= 0) console.log('No results found.')
+      if (result.length <= 0){
+        console.log('No results found.')
+        $('.suggestions-field').find('.row')
+        .append($('<div/>').addClass(`class="alert alert-danger" suggestion`))
+        $('.suggestions-field').slideDown();
+      }
       else if (result.length  < 3) {
         let emptyDivs = 3 - result.total_results;
         for (let i = 0; i < result.total_results; i++){
@@ -176,7 +181,12 @@ $(document).ready(function() {
       data: {"userinput":searchTerms}
     }).done((result)=>{
       // console.log(result);
-      if (result.total <= 0) console.log('No results found.')
+      if (result.total <= 0) {
+        console.log('No results found.')
+        $('.suggestions-field').find('.row')
+        .append($('<div/>').addClass('alert alert-danger suggestion').text('No Results Found'))
+        $('.suggestions-field').slideDown();
+      }
       else if (result.total_results  < 3) {
         let emptyDivs = 3 - result.total_results;
         for (let i = 0; i < result.total_results; i++){
