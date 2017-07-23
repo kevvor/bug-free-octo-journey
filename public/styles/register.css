@@ -3,11 +3,6 @@
   margin: 0;
 }
 
-* {
-  padding: 0;
-  margin: 0;
-}
-
 #bg {
   position: fixed;
   padding-top: 40px;
@@ -40,17 +35,15 @@
   text-align: center;
 }
 
-.login-password {
+.register {
   margin-top: 30%;
   margin-bottom: 70%;
 }
 
 .container h3 {
-  color: #fff;
   font-size: 2.5em;
-}
 
+}
 form h4 {
-  color: #fff;
   font-size: 20px;
 }
