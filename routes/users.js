@@ -21,6 +21,7 @@ module.exports = (knex) => {
       WHERE u.id = ?`, [req.session.user_id])
     .then(function(movieResponse) {
       responseObj["movielist"] = movieResponse;
+      console.log(movieResponse);
     })
     knex.raw(
       `SELECT
