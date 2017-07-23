@@ -5,12 +5,14 @@ img.media-object{
   border-radius: 10px;
 }
 
-.col-md-7{
-
-  margin-top: 15px;
+.media{
+  padding-top: 15px;
+  background-color: #E1EFF6;
+  width: 100%;
 }
 
 .movies-list{
+
 }
 .books-list{
   display: none;

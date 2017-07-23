@@ -1,27 +1,25 @@
 body {
   margin: 0;
-  padding: 0 10px 0 10px;
+
 
 }
 
 main {
-
+  padding:  80px 15% 0 15%;
   margin: 0 auto;
-  width: 1170px;
-  padding: 0px;
+  width: 100%;
   padding-top: 80px;
 
 }
 
 .nav{
-  width: 1150px;
+  width: 100%;
   margin-top: 20px;
 }
 
 .container{
-  background-color: #E1EFF6;
-  width: 1150px;
 
+  width: 100%;
 }
 
 .alert{
