@@ -1,3 +1,7 @@
+ul.nav.nav-tabs {
+  border-bottom: 0;
+}
+
 img.media-object{
   height: 80px;
   width: 80px;
@@ -6,13 +10,15 @@ img.media-object{
 }
 
 .media{
-  padding-top: 15px;
+  padding: 15px 15px;
   background-color: #BDEDFF;
   width: 100%;
+  opacity: .98;
 }
 
 .media-object {
   margin-left: 2em;
+  opacity: .98;
 }
 
 .movies-list {
