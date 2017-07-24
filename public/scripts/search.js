@@ -77,11 +77,30 @@ $(document).ready(function() {
         },
         success: function(response){
           console.log(response);
-          $('.media.temp').data("movieID", response);
+
 
           $('.suggestions-field').slideUp();
 
 
+        $(".places-list").append(
+             `<div class="rows">
+              <div class="media temp"  data-category = "place" data-placeID = ${response}>
+                <div class="media-left" "media-middle">
+                  <a href="#"">
+                    <img class="media-object" src="${apiInput.businesses[resultIndex].image_url}" alt="image" >
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">${apiInput.businesses[resultIndex].name}</h4>
+                  <ul>
+                    <li class="address">${apiInput.businesses[resultIndex].location.address1}</li>
+                  </ul>
+                </div>
+              </div>
+              <button type="delete" value="delete" class="btn btn-danger">delete</button>
+            </div>
+            `
+        );
 
         }
       })
@@ -106,6 +125,27 @@ $(document).ready(function() {
         data: {"category": "product",
                "title": searchTerms,
                "img": apiInput[resultIndex].LargeImage[0].URL[0]
+        },
+        success: function(response){
+          console.log(response);
+          $('.suggestions-field').slideUp();
+          $(".products-list").append(`
+              <div class="rows">
+                <div class="media" dataID = ${response} data-category = "product">
+                  <button type="delete" value="delete" class="btn btn-danger delete-button">delete</button>
+                  <div class="media-left" "media-middle">
+                    <a href="#"">
+                      <img class="media-object" src="${apiInput[resultIndex].LargeImage[0].URL[0]}" alt="image" >
+                    </a>
+                  </div>
+                  <div class="media-body">
+                    <h4 class="media-heading">${searchTerms}</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `);
+
         }
       })
     })
@@ -137,6 +177,30 @@ $(document).ready(function() {
                "title": apiInput[resultIndex].title,
                "img": apiInput[resultIndex].thumbnail,
                "author": authorList
+        },
+        success: function(response){
+          console.log(response);
+          $('.suggestions-field').slideUp();
+          $(".books-list").append(
+            `
+              <div class="rows">
+                <div class="media" dataID = ${response} data-category = "book">
+                <button type="delete" value="delete" class="btn btn-danger delete-button">delete</button>
+                  <div class="media-left" "media-middle">
+                    <a href="#">
+                      <img class="media-object" src="${apiInput[resultIndex].thumbnail}" alt="image" >
+                    </a>
+                  </div>
+                  <div class="media-body">
+                    <h4 class="media-heading">${apiInput[resultIndex].title}</h4>
+                    <ul>
+                      <li class="author">${authorList}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `);
         }
       })
     })
