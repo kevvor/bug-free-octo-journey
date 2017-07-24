@@ -1,25 +1,5 @@
 $(document).ready(function() {
 
-
-
-// let database = response.rows[0];
-// console.log(response)
-
-$('.btn-danger').on('click', function(){
-  $.ajax({
-    method: "DELETE",
-    url: "/api/users/delete",
-    data: {
-      user_id: $(),
-      category: $(),
-      item_id: $()
-    }
-  })
-})
-
-
-
-
 function createMovieItem (obj) {
   let newMovieItem = `
   <div class="rows">
@@ -136,7 +116,17 @@ $.ajax({
         };
   });
 
-
+$('.btn-danger').on('click', function(){
+  $.ajax({
+    method: "DELETE",
+    url: "/api/users/delete",
+    data: {
+      user_id: $(),
+      category: $(),
+      item_id: $()
+    }
+  })
+})
 
 
 });
