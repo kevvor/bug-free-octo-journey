@@ -11,6 +11,10 @@ img.media-object{
   width: 100%;
 }
 
+.media-object {
+  margin-left: 2em;
+}
+
 .movies-list {
 }
 
@@ -55,3 +59,9 @@ a#product-tab-selector {
 .media.product-element {
   background-color: #FFFF00;
 }
+
+.delete-button {
+  float: right;
+  margin-right: 2em;
+}
+

@@ -26,7 +26,7 @@ function createBookItem (obj) {
   let newBookItem = `
     <div class="rows">
         <div class="media book-element" dataID = "${obj.book_pk}" data-category = "book">
-        <button type="delete" value="delete" class="btn btn-danger delete-button">delete</button>
+            <button type="delete" value="delete" class="btn btn-danger delete-button">delete</button>
           <div class="media-left" "media-middle">
             <a href="#"">
               <img class="media-object" src="${obj.book_image}" alt="image" >
