@@ -26,8 +26,25 @@ $(document).ready(function() {
         }
       })
     $('.suggestions-field').slideUp();
-
-
+    $(".movies-list").append(
+       `<div class="rows">
+        <div class="media"  data-category = "movie">
+          <div class="media-left" "media-middle">
+            <a href="#"">
+              <img class="media-object" src="${poster_URL}" alt="image">
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">${apiInput.results[resultIndex].title}</h4>
+            <ul>
+              <li class="rating">${apiInput.results[resultIndex].vote_average}</li>
+            </ul>
+          </div>
+        </div>
+        <button type="delete" value="delete" class="btn btn-danger">delete</button>
+      </div>
+      `
+    );
 
     })
   }
