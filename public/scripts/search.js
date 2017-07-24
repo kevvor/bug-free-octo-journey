@@ -5,6 +5,7 @@ $(document).ready(function() {
   function renderTmdb(apiInput, resultIndex){
     let baseUrl = "http://image.tmdb.org/t/p/w185"
     let colClass = `col-sm-4 suggestion ${resultIndex}`
+    let idNewPin = 0;
     $('.suggestions-field').find('.row')
     .append(
       $('<div/>').addClass(colClass)
@@ -23,29 +24,33 @@ $(document).ready(function() {
                "title": apiInput.results[resultIndex].title,
                "img": poster_URL,
                "rating":apiInput.results[resultIndex].vote_average
+        },
+        success: function(response){
+          console.log(response);
+          $('.media.temp').data("movieID", response);
+
+          $('.suggestions-field').slideUp();
+          $(".movies-list").append(
+             `<div class="rows">
+              <div class="media temp"  data-category = "movie" data-movieID = ${response}>
+                <div class="media-left" "media-middle">
+                  <a href="#"">
+                    <img class="media-object" src="${poster_URL}" alt="image">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">${apiInput.results[resultIndex].title}</h4>
+                  <ul>
+                    <li class="rating">${apiInput.results[resultIndex].vote_average}</li>
+                  </ul>
+                </div>
+              </div>
+              <button type="delete" value="delete" class="btn btn-danger">delete</button>
+            </div>
+            `
+          );
         }
       })
-    $('.suggestions-field').slideUp();
-    $(".movies-list").append(
-       `<div class="rows">
-        <div class="media"  data-category = "movie">
-          <div class="media-left" "media-middle">
-            <a href="#"">
-              <img class="media-object" src="${poster_URL}" alt="image">
-            </a>
-          </div>
-          <div class="media-body">
-            <h4 class="media-heading">${apiInput.results[resultIndex].title}</h4>
-            <ul>
-              <li class="rating">${apiInput.results[resultIndex].vote_average}</li>
-            </ul>
-          </div>
-        </div>
-        <button type="delete" value="delete" class="btn btn-danger">delete</button>
-      </div>
-      `
-    );
-
     })
   }
 
@@ -69,6 +74,15 @@ $(document).ready(function() {
                "title": apiInput.businesses[resultIndex].name,
                "img": apiInput.businesses[resultIndex].image_url,
                "address": apiInput.businesses[resultIndex].location.address1
+        },
+        success: function(response){
+          console.log(response);
+          $('.media.temp').data("movieID", response);
+
+          $('.suggestions-field').slideUp();
+
+
+
         }
       })
     })

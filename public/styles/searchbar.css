@@ -42,7 +42,7 @@ div.row{
   margin-left: 15px;
 }
 
-textarea.form-control{
+input.form-control{
   display: inline-block;
   padding: 0px;
   height: 35.5px;

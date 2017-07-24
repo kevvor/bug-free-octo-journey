@@ -1,24 +1,10 @@
 $(document).ready(function() {
 
-// let database = response.rows[0];
-// console.log(response)
-
-$('.btn-danger').on('click', function(){
-  $.ajax({
-    method: "DELETE",
-    url: "/api/users/delete",
-    data: {
-      user_id: $(),
-      category: $(),
-      item_id: $()
-    }
-  })
-})
-
 function createMovieItem (obj) {
   let newMovieItem = `
-  <div class="rows">
-        <div class="media movie-element" data-movieID = "${obj.movie_pk}" data-category = "movie">
+    <div class="rows">
+        <div class="media movie-element" dataID = "${obj.movie_pk}" data-category = "movie">
+        <button type="delete" value="delete" class="btn btn-danger delete-button">delete</button>
           <div class="media-left" "media-middle">
             <a href="#"">
               <img class="media-object" src="${obj.movie_image}" alt="image">
@@ -26,12 +12,11 @@ function createMovieItem (obj) {
           </div>
           <div class="media-body">
             <h4 class="media-heading">${obj.movie_name}</h4>
-            <ul>
-              <li class="rating">${obj.movie_rating}</li>
-            </ul>
+              <ul>
+                <li class="rating">${obj.movie_rating}</li>
+              </ul>
           </div>
         </div>
-        <button type="delete" value="delete" class="btn btn-danger">delete</button>
     </div>
     `
   return (newMovieItem);
@@ -40,7 +25,8 @@ function createMovieItem (obj) {
 function createBookItem (obj) {
   let newBookItem = `
     <div class="rows">
-        <div class="media book-element" data-bookID = "${obj.book_pk}" data-category = "book">
+        <div class="media book-element" dataID = "${obj.book_pk}" data-category = "book">
+        <button type="delete" value="delete" class="btn btn-danger delete-button">delete</button>
           <div class="media-left" "media-middle">
             <a href="#"">
               <img class="media-object" src="${obj.book_image}" alt="image" >
@@ -61,7 +47,8 @@ function createBookItem (obj) {
 function createPlaceItem (obj) {
   let newPlaceItem = `
     <div class="rows" >
-        <div class="media place-element" data-placeID = "${obj.place_pk}" data-category = "place">
+        <div class="media place-element" dataID = "${obj.place_pk}" data-category = "place">
+        <button type="delete" value="delete" class="btn btn-danger delete-button">delete</button>
           <div class="media-left" "media-middle">
             <a href="#"">
               <img class="media-object" src="${obj.place_image}" alt="image" >
@@ -82,8 +69,8 @@ function createPlaceItem (obj) {
 function createProductItem (obj) {
   let newProductItem = `
     <div class="rows">
-
-        <div class="media product-element" data-productID = "${obj.product_pk}" data-category = "product">
+        <div class="media product-element" dataID = "${obj.product_pk}" data-category = "product">
+          <button type="delete" value="delete" class="btn btn-danger delete-button">delete</button>
           <div class="media-left" "media-middle">
             <a href="#"">
               <img class="media-object" src="${obj.product_image}" alt="image" >
@@ -128,11 +115,21 @@ $.ajax({
           let placeItem = createPlaceItem(userPlaceList[i]);
           $(".places-list").append(placeItem);
         };
+
+    $('.delete-button').on('click', function() {
+      let category = $(this).parent().attr('data-category')
+      let itemId = $(this).parent().attr('dataID')
+
+      $.ajax({
+        method: "DELETE",
+        url: "/api/users/delete",
+        data: {
+          category: category,
+          item_id: itemId
+        }
+      })
+    })
   });
-
-
-
-
 });
 
 

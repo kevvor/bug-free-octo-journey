@@ -84,6 +84,7 @@ module.exports = (knex) => {
     .returning('id')
     .asCallback(function (err, result) {
       console.log('first post result')
+      res.json(result[0]);
       console.log(result[0]);
       if (err) return console.error(err);
       knex.insert([{
@@ -108,6 +109,7 @@ module.exports = (knex) => {
     .returning('id')
     .asCallback(function (err, result) {
       console.log(result[0]);
+      res.json(result[0]);
       if (err) return console.error(err);
       knex.insert([{
         users_id: req.session.user_id,
@@ -131,6 +133,7 @@ module.exports = (knex) => {
     .returning('id')
     .asCallback(function (err, result) {
       console.log(result[0]);
+      res.json(result[0]);
       if (err) return console.error(err);
       knex.insert([{
         users_id: req.session.user_id,
@@ -153,6 +156,7 @@ module.exports = (knex) => {
     .returning('id')
     .asCallback(function (err, result) {
       console.log(result[0]);
+      res.json(result[0]);
       if (err) return console.error(err);
       knex.insert([{
         users_id: req.session.user_id,
@@ -167,11 +171,59 @@ module.exports = (knex) => {
     }
   });
 
-  // router.post("/delete" (req, res) => {
-  //after getting some data from the ajax call look up
-  //in the database the correct item in Users_categories table
-  // and delete that row
-  // })
-
+  router.delete("/delete",  (req, res) => {
+    if (req.body.category === 'movie') {
+      knex('users_movies')
+      .where('movies_id', req.body.item_id)
+      .del()
+      .asCallback(function(err, result) {
+      if (err) return console.error(err);
+      console.log(result)
+      });
+    }
+    if (req.body.category === 'product') {
+      knex('users_products')
+      .where('products_id', req.body.item_id)
+      .del()
+      .asCallback(function(err, result) {
+      if (err) return console.error(err);
+      console.log(result)
+      });
+    }
+    if (req.body.category === 'place') {
+      knex('users_places')
+      .where('places_id', req.body.item_id)
+      .del()
+      .asCallback(function(err, result) {
+      if (err) return console.error(err);
+      console.log(result)
+      });
+    }
+    if (req.body.category === 'book') {
+      knex('users_books')
+      .where('books_id', req.body.item_id)
+      .del()
+      .asCallback(function(err, result) {
+      if (err) return console.error(err);
+      console.log(result)
+      });
+    }
+  })
   return router
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
