@@ -117,7 +117,7 @@ $.ajax({
         if (response.productlist) userProductList = response.productlist.rows;
         if (response.placelist) userPlaceList = response.placelist.rows;
 
-        console.log(response.booklist.rows)
+
         for (i in userBookList){
           let bookItem = createBookItem(userBookList[i]);
           $(".books-list").append(bookItem);
@@ -134,18 +134,16 @@ $.ajax({
           let placeItem = createPlaceItem(userPlaceList[i]);
           $(".places-list").append(placeItem);
         };
+  });
 
-        // let movieItem = createMovieItem(response[i]);
-        // let bookItem = createBookItem(response[i]);
-        // let productItem = createProductItem(response[i]);
-        // let placeItem = createPlaceItem(response[i]);
-        // $(".movies-list").append(movieItem);
-        // $(".books-list").append(bookItem);
-        // $(".places-list").append(placeItem);
-        // $(".products-list").append(productItem);
+
 
 
 });
+
+
+
+
 
 // function renderMovieItem (dataObj) {
 //   console.log('in movie render')
@@ -204,7 +202,7 @@ $.ajax({
 
 // loadToDoItems();
 
-});
+
 
 // $(selector).hide(speed, callback);
 

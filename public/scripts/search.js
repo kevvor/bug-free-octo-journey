@@ -12,7 +12,7 @@ $(document).ready(function() {
         .append($('<img/>').attr("src", `${baseUrl}${apiInput.results[resultIndex].poster_path}`)).append($('<br/>'))
         .append($('<span/>').text(`Released: ${apiInput.results[resultIndex].release_date}`)).append($('<br/>'))
         .append($('<span/>').text(`TMDB user rating: ${apiInput.results[resultIndex].vote_average}/10`))
-        .append($('<button/>').addClass('btn btn-default').text('Pin this movie!'))
+        .append($('<button/>').addClass('btn pin btn-default').text('Pin this movie!'))
     )
     $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
       let poster_URL = `${baseUrl}${apiInput.results[resultIndex].poster_path}`
@@ -25,6 +25,10 @@ $(document).ready(function() {
                "rating":apiInput.results[resultIndex].vote_average
         }
       })
+    $('.suggestions-field').slideUp();
+
+
+
     })
   }
 
@@ -38,7 +42,7 @@ $(document).ready(function() {
         .append($('<img/>').attr("src", apiInput.businesses[resultIndex].image_url)).append($('<br/>'))
         .append($('<span/>').text(`Address: ${apiInput.businesses[resultIndex].location.address1}`)).append($('<br/>'))
         .append($('<span/>').text(`Yelp user rating: ${apiInput.businesses[resultIndex].rating}/5`))
-        .append($('<button/>').addClass('btn btn-default').text('Pin to place'))
+        .append($('<button/>').addClass('btn pin btn-default').text('Pin to place'))
     )
     $(`.suggestion.${resultIndex}`).find('button').on('click',function(){
       $.ajax({
@@ -121,6 +125,8 @@ $(document).ready(function() {
     $('.books-list').hide();
     $('.places-list').hide();
     $('.products-list').hide();
+
+
 
   })
 
