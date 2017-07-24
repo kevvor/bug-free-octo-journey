@@ -7,7 +7,7 @@ img.media-object{
 
 .media{
   padding-top: 15px;
-  background-color: #00FFFF;
+  background-color: #BDEDFF;
   width: 100%;
 }
 
@@ -15,7 +15,7 @@ img.media-object{
 }
 
 a#movie-tab-selector {
-  background-color: #00FFFF;
+  background-color: #BDEDFF;
 }
 
 .media.movie-element {
@@ -26,22 +26,23 @@ a#movie-tab-selector {
 }
 
 a#book-tab-selector {
-  background-color: #00FF33;
+  background-color: #9AFEFF;
 }
 
 .media.book-element {
-  background-color: #00FF33;
+  background-color: #C6DEFF;
 }
 
 .places-list{
   display: none;
 }
+
 a#restaurant-tab-selector {
-  background-color: red;
+  background-color: #C6DEFF;
 }
 
 .media.place-element {
-  background-color: red;
+  background-color: #C6DEFF;
 }
 
 .products-list{
@@ -49,9 +50,9 @@ a#restaurant-tab-selector {
 }
 
 a#product-tab-selector {
-  background-color: #FFFF00;
+  background-color: #E3CEF6;
 }
 
 .media.product-element {
-  background-color: #FFFF00;
+  background-color: #E3CEF6;
 }

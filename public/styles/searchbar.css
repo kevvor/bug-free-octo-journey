@@ -51,7 +51,6 @@ input.form-control{
   padding-left: 5px;
 }
 
-
 div.input-group{
   padding: 0px;
 
@@ -71,13 +70,14 @@ button{
   width: 30%
 }
 
-
-
 .suggestion-field {
   padding: 0;
 }
-.jumbotron{
-  background-color: #E1EFF6;
+
+.row .col-md-8 .jumbotron{
+  background-color: #ffffff;
+  opacity: 0.6;
+  border-radius: 10px;
 }
 
 div.alert.alert-danger{
@@ -85,6 +85,3 @@ div.alert.alert-danger{
   margin-left: -3.5%;
   width: 107.25%;
 }
-
-
-
