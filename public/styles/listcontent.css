@@ -5,10 +5,15 @@ img.media-object{
   border-radius: 10px;
 }
 
+ul.nav.nav-tabs{
+  border-bottom: 0;
+}
+
 .media{
-  padding-top: 15px;
+  padding: 15px 15px;
   background-color: #BDEDFF;
   width: 100%;
+  opacity: .98;
 }
 
 .media-object {
@@ -30,11 +35,11 @@ a#movie-tab-selector {
 }
 
 a#book-tab-selector {
-  background-color: #9AFEFF;
+  background-color: #d2fdfd;
 }
 
 .media.book-element {
-  background-color: #C6DEFF;
+  background-color: #d2fdfd;
 }
 
 .places-list{

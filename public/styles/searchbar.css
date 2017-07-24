@@ -75,9 +75,11 @@ button{
 }
 
 .row .col-md-8 .jumbotron{
-  background-color: #ffffff;
-  opacity: 0.6;
+  background-color: #59a5d8;
+  opacity: .98;
   border-radius: 10px;
+  color: white;
+
 }
 
 div.alert.alert-danger{

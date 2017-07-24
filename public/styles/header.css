@@ -1,9 +1,10 @@
 .header{
   height: 80px;
-  background-color: #59A5D8;
+  background-color: #468dbd;
   position: fixed;
   width: 100%;
   z-index: 1000;
+
 }
 
 .logout{
