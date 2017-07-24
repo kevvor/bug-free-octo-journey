@@ -1,27 +1,3 @@
-body {
-}
-
-main {
-  margin: 0 auto;
-  padding-top: 80px;
-}
-
-.nav{
-  width: 100%;
-  margin-top: 20px;
-}
-
-.container{
-  width: 100%;
-}
-
-.alert{
-  text-align: center;
-  margin: 0 auto;
-}
-
-/*Comment, the above was in layout.css*/
-
 img.media-object{
   height: 80px;
   width: 80px;
@@ -31,19 +7,51 @@ img.media-object{
 
 .media{
   padding-top: 15px;
-  background-color: #E1EFF6;
+  background-color: #00FFFF;
   width: 100%;
 }
 
-.movies-list{
-
+.movies-list {
 }
+
+a#movie-tab-selector {
+  background-color: #00FFFF;
+}
+
+.media.movie-element {
+}
+
 .books-list{
   display: none;
 }
+
+a#book-tab-selector {
+  background-color: #00FF33;
+}
+
+.media.book-element {
+  background-color: #00FF33;
+}
+
 .places-list{
   display: none;
 }
+a#restaurant-tab-selector {
+  background-color: red;
+}
+
+.media.place-element {
+  background-color: red;
+}
+
 .products-list{
   display: none;
+}
+
+a#product-tab-selector {
+  background-color: #FFFF00;
+}
+
+.media.product-element {
+  background-color: #FFFF00;
 }

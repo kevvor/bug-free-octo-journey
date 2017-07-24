@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-
-
 // let database = response.rows[0];
 // console.log(response)
 
@@ -17,13 +15,10 @@ $('.btn-danger').on('click', function(){
   })
 })
 
-
-
-
 function createMovieItem (obj) {
   let newMovieItem = `
   <div class="rows">
-        <div class="media" data-movieID = "${obj.movie_pk}" data-category = "movie">
+        <div class="media movie-element" data-movieID = "${obj.movie_pk}" data-category = "movie">
           <div class="media-left" "media-middle">
             <a href="#"">
               <img class="media-object" src="${obj.movie_image}" alt="image">
@@ -45,8 +40,7 @@ function createMovieItem (obj) {
 function createBookItem (obj) {
   let newBookItem = `
     <div class="rows">
-        <div class="media" data-bookID = "${obj.book_pk}" data-category = "book">
-
+        <div class="media book-element" data-bookID = "${obj.book_pk}" data-category = "book">
           <div class="media-left" "media-middle">
             <a href="#"">
               <img class="media-object" src="${obj.book_image}" alt="image" >
@@ -67,7 +61,7 @@ function createBookItem (obj) {
 function createPlaceItem (obj) {
   let newPlaceItem = `
     <div class="rows" >
-        <div class="media" data-placeID = "${obj.place_pk}" data-category = "place">
+        <div class="media place-element" data-placeID = "${obj.place_pk}" data-category = "place">
           <div class="media-left" "media-middle">
             <a href="#"">
               <img class="media-object" src="${obj.place_image}" alt="image" >
@@ -89,7 +83,7 @@ function createProductItem (obj) {
   let newProductItem = `
     <div class="rows">
 
-        <div class="media" data-productID = "${obj.product_pk}" data-category = "product">
+        <div class="media product-element" data-productID = "${obj.product_pk}" data-category = "product">
           <div class="media-left" "media-middle">
             <a href="#"">
               <img class="media-object" src="${obj.product_image}" alt="image" >
