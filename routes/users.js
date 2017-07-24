@@ -84,6 +84,7 @@ module.exports = (knex) => {
     .returning('id')
     .asCallback(function (err, result) {
       console.log('first post result')
+      res.json(result[0]);
       console.log(result[0]);
       if (err) return console.error(err);
       knex.insert([{
@@ -108,6 +109,7 @@ module.exports = (knex) => {
     .returning('id')
     .asCallback(function (err, result) {
       console.log(result[0]);
+      res.json(result[0]);
       if (err) return console.error(err);
       knex.insert([{
         users_id: req.session.user_id,
@@ -131,6 +133,7 @@ module.exports = (knex) => {
     .returning('id')
     .asCallback(function (err, result) {
       console.log(result[0]);
+      res.json(result[0]);
       if (err) return console.error(err);
       knex.insert([{
         users_id: req.session.user_id,
@@ -153,6 +156,7 @@ module.exports = (knex) => {
     .returning('id')
     .asCallback(function (err, result) {
       console.log(result[0]);
+      res.json(result[0]);
       if (err) return console.error(err);
       knex.insert([{
         users_id: req.session.user_id,
