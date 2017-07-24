@@ -94,14 +94,10 @@ $.ajax({
         let userProductList = '';
         let userPlaceList = '';
 
-        console.log(response.movies.rows)
-        console.log(response.movies)
-
         if (response.booklist) userBookList = response.booklist.rows;
         if (response.movielist) userMovieList = response.movielist.rows;
         if (response.productlist) userProductList = response.productlist.rows;
         if (response.placelist) userPlaceList = response.placelist.rows;
-
 
         for (i in userBookList){
           let bookItem = createBookItem(userBookList[i]);
