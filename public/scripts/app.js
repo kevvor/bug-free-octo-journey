@@ -128,6 +128,7 @@ $.ajax({
           item_id: itemId
         }
       })
+      $(this).parents('.rows').remove();
     })
   });
 });
