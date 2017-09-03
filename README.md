@@ -1,21 +1,17 @@
 # PinList
 
+## About the Project
+
+PinList queries the APIs of Amazon, Yelp, Google Books, and TMDB (a movie database) to build a smart to-do list of products, places to visit, books, and movies. It utilizes a search drop-down to prompt the user with three suggestions.
+
 ## View PinList Screenshots
 
 !["PinList"](/docs/to-do-list.png)
+
+### Search Drop-down
 !["Drop-down Search"](/docs/search-drop-down.png)
 
-## Project Setup
-
-1. Create your own empty repo on GitHub
-2. Clone this repository (do not fork)
-  - Suggestion: When cloning, specify a different folder name that is relevant to your project
-3. Remove the git remote: `git remote rm origin`
-4. Add a remote for your origin: `git remote add origin <your github repo URL>`
-5. Push to the new origin: `git push -u origin master`
-6. Verify that the skeleton code now shows up in your repo on GitHub
-
-## Getting Started
+## Setup
 
 1. Create the `.env` by using `.env.example` as a reference: `cp .env.example .env`
 2. Update the .env file with your correct local information
